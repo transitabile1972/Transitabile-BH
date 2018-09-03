@@ -25,6 +25,8 @@
   <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <!-- Tag style CSS -->
+  <link rel="stylesheet" href="style.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -193,58 +195,44 @@
                   <th>Log</th>
                 </tr>
                 <tr>
-                  <td>183</td>
+                  <td><span class="id-style">183</span></td>
                   
-                  <td>11-7-2014</td>
-                  <td><span class="label label-success">Aprovada</span></td>
-                  <td>A compra via PagSeguro foi aprovada com sucesso.</td>
+                  <td><span class="histDate">11-7-2014</span></td>
+                  <td><span id="lblStatus" class="label label-success">Aprovada</span></td>
+                  <td><button id="btn_log" type="button" class="btn btn-success btn-xs btn-log-style" data-toggle="popover" data-placement="top" data-content="A compra via PagSeguro foi aprovada com sucesso.">Ver log</button></td>
+                  <td><button id="btnCancel" type="button" class="btn btn-default btn-xs btn-cancel-style" onclick="btnCancel()"><span class="glyphicon glyphicon-trash btn-trash-style"></span></p></button></td>
                 </tr>
                 <tr>
-                  <td>219</td>
+                  <td><span class="id-style">219</span></td>
                   
-                  <td>11-7-2014</td>
-                  <td><span class="label label-warning">Pendente</span></td>
-                  <td>Aguardando resposta da operadora.</td>
+                  <td><span class="histDate">11-7-2014</span></td>
+                  <td><span id="lblStatus" class="label label-warning">Pendente</span></td>
+                  <td><button id="btn_log" type="button" class="btn btn-success btn-xs btn-log-style" data-toggle="popover" data-placement="top" data-content="Aguardando resposta da operadora.">Ver log</button></td>
+                  <td><button id="btnCancel" type="button" class="btn btn-default btn-xs" onclick="btnCancel()"><span class="glyphicon glyphicon-trash btn-trash-style"></span></p></button></td>
                 </tr>
                 <tr>
-                  <td>657</td>
+                  <td><span class="id-style">657</span></td>
                   
-                  <td>11-7-2014</td>
-                  <td><span class="label label-primary">Cancelada</span></td>
-                  <td>Ação cancelada pelo usuário.</td>
+                  <td><span class="histDate">11-7-2014</span></td>
+                  <td><span id="lblStatus" class="label label-primary">Cancelada</span></td>
+                  <td><button id="btn_log" type="button" class="btn btn-success btn-xs btn-log-style" data-toggle="popover" data-placement="top" data-content="Ação cancelada pelo usuário.">Ver log</button></td>
+                  <td><button id="btnCancel" type="button" class="btn btn-default btn-xs" onclick="btnCancel()"><span class="glyphicon glyphicon-trash btn-trash-style"></span></p></button></td>
                 </tr>
                 <tr>
-                  <td>175</td>
+                  <td><span class="id-style">175</span></td>
                   
-                  <td>11-7-2014</td>
-                  <td><span class="label label-danger">Negada</span></td>
-                  <td>Compra não permitida pela operadora.</td>
+                  <td><span class="histDate">11-7-2014</span></td>
+                  <td><span id="lblStatus" class="label label-danger">Negada</span></td>
+                  <td><button id="btn_log" type="button" class="btn btn-success btn-xs btn-log-style" data-toggle="popover" data-placement="top" data-content="Compra não permitida pela operadora.">Ver log</button></td>
+                  <td><button id="btnCancel" type="button" class="btn btn-default btn-xs" onclick="btnCancel()"><span class="glyphicon glyphicon-trash btn-trash-style"></span></p></button></td>
                 </tr>
               </tbody></table>
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
-        </div>  
+        </div>         
         
-        <div class="col-md-6">
-    
-<div class="box box-info">
-            <div class="box-header with-border">
-              <h3 class="box-title">Estacionamentos</h3>
-
-              <div class="box-tools pull-right">
-                
-                
-              </div>
-            </div>
-            <div class="box-body chart-responsive">
-              <div class="chart" id="line-chart" style="height: 300px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><svg height="300" version="1.1" width="1107" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="overflow: hidden; position: relative; left: -0.5px;"><desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël 2.2.0</desc><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs><text x="49.515625" y="261" text-anchor="end" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: end; font-family: sans-serif; font-size: 12px; font-weight: normal;" font-weight="normal"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">0</tspan></text><path fill="none" stroke="#aaaaaa" d="M62.015625,261H1081.5" stroke-width="0.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><text x="49.515625" y="202" text-anchor="end" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: end; font-family: sans-serif; font-size: 12px; font-weight: normal;" font-weight="normal"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">5,000</tspan></text><path fill="none" stroke="#aaaaaa" d="M62.015625,202H1081.5" stroke-width="0.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><text x="49.515625" y="143" text-anchor="end" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: end; font-family: sans-serif; font-size: 12px; font-weight: normal;" font-weight="normal"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">10,000</tspan></text><path fill="none" stroke="#aaaaaa" d="M62.015625,143H1081.5" stroke-width="0.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><text x="49.515625" y="84" text-anchor="end" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: end; font-family: sans-serif; font-size: 12px; font-weight: normal;" font-weight="normal"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">15,000</tspan></text><path fill="none" stroke="#aaaaaa" d="M62.015625,84H1081.5" stroke-width="0.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><text x="49.515625" y="25" text-anchor="end" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: end; font-family: sans-serif; font-size: 12px; font-weight: normal;" font-weight="normal"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">20,000</tspan></text><path fill="none" stroke="#aaaaaa" d="M62.015625,25H1081.5" stroke-width="0.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><text x="1081.5" y="273.5" text-anchor="middle" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">2013-06</tspan></text><text x="1005.9367595686514" y="273.5" text-anchor="middle" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">2013-04</tspan></text><text x="932.7993881948664" y="273.5" text-anchor="middle" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">2013-02</tspan></text><text x="855.9974061171021" y="273.5" text-anchor="middle" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">2012-12</tspan></text><text x="780.4857799210207" y="273.5" text-anchor="middle" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">2012-10</tspan></text><text x="704.922539489672" y="273.5" text-anchor="middle" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">2012-08</tspan></text><text x="629.3592990583232" y="273.5" text-anchor="middle" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">2012-06</tspan></text><text x="553.7960586269745" y="273.5" text-anchor="middle" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">2012-04</tspan></text><text x="479.41994560677404" y="273.5" text-anchor="middle" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">2012-02</tspan></text><text x="402.6179635290097" y="273.5" text-anchor="middle" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">2011-12</tspan></text><text x="327.1063373329283" y="273.5" text-anchor="middle" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">2011-10</tspan></text><text x="251.5430969015796" y="273.5" text-anchor="middle" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">2011-08</tspan></text><text x="175.97985647023086" y="273.5" text-anchor="middle" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">2011-06</tspan></text><text x="100.41661603888214" y="273.5" text-anchor="middle" font-family="sans-serif" font-size="12px" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-family: sans-serif; font-size: 12px; font-weight: normal;" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">2011-04</tspan></text><path fill="none" stroke="#3c8dbc" d="M62.015625,229.5412C90.50668286755771,229.2108,147.48879860267314,231.53245,175.97985647023086,228.2196C204.47091433778857,224.90675000000002,261.45303007290397,204.50548048280575,289.9440879404617,203.0384C318.11255683759873,201.58793048280575,374.4494946318727,219.3476681547619,402.6179635290097,216.5494C430.8122395437804,213.7485681547619,487.20079157332174,183.4342290575916,515.3950675880924,180.642C543.8861254556501,177.82037905759162,600.8682411907655,191.15875,629.3592990583232,194.094C657.850356925881,197.02925,714.8324726609964,218.07239007059894,743.3235305285541,204.124C771.4919994256911,190.33354007059896,827.828937219965,91.83625192219152,855.9974061171021,83.1386C883.8819967202688,74.52860192219153,939.6511779266024,125.20330090409703,967.5357685297691,134.89339999999999C996.0268263973269,144.79425090409703,1053.0089421324424,154.85015,1081.5,161.50240000000002" stroke-width="3" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><circle cx="62.015625" cy="229.5412" r="4" fill="#3c8dbc" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="175.97985647023086" cy="228.2196" r="4" fill="#3c8dbc" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="289.9440879404617" cy="203.0384" r="4" fill="#3c8dbc" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="402.6179635290097" cy="216.5494" r="4" fill="#3c8dbc" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="515.3950675880924" cy="180.642" r="4" fill="#3c8dbc" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="629.3592990583232" cy="194.094" r="4" fill="#3c8dbc" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="743.3235305285541" cy="204.124" r="4" fill="#3c8dbc" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="855.9974061171021" cy="83.1386" r="4" fill="#3c8dbc" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="967.5357685297691" cy="134.89339999999999" r="4" fill="#3c8dbc" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="1081.5" cy="161.50240000000002" r="4" fill="#3c8dbc" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle></svg><div class="morris-hover morris-default-style" style="left: 18.9922px; top: 162px; display: none;"><div class="morris-hover-row-label">2011 Q1</div><div class="morris-hover-point" style="color: #3c8dbc">
-  Item 1:
-  2,666
-</div></div></div>
-            </div>
-            <!-- /.box-body -->
           </div>
 
           <!-- Horizontal Form -->
@@ -285,6 +273,19 @@
 <!-- jQuery UI 1.11.4 -->
 <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
+<script>
+  function btnCancel() {
+    window.location.href = "cancel.html";
+  }
+</script>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
+</script>
+
 <script>
   $.widget.bridge('uibutton', $.ui.button);
   

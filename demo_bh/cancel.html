@@ -25,6 +25,8 @@
   <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <!-- Tag style CSS -->
+  <link rel="stylesheet" href="style.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -221,8 +223,10 @@
               </div>
               <!-- /.box-body -->
 
-              <div class="box-footer"><button type="button" class="btn btn-primary">Confirmar</button>
-              </div>
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="exitCancel()">Voltar</button>
+              </div>              
             </form>
             </div>
             <!-- /.box-body -->
@@ -260,7 +264,14 @@
 <!-- jQuery UI 1.11.4 -->
 <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+
 <script>
+  function exitCancel() {
+    window.location.href = "history.html";
+  }
+</script>
+<script>
+
 	$.widget.bridge('uibutton', $.ui.button);
  
 	$(document).ready( function ( ) {
@@ -302,6 +313,7 @@
 						$("#cancelForm").find('input[name="type"]').val("");
             $("#cancelForm").find('input[name="reason"]').val("");
 						
+            window.location.href = "history.html";
 						
 					}					
 				}					
@@ -320,7 +332,7 @@
 		window.localStorage.clear();
 		window.location.href = "index.html";
 	}
- 
+
 </script>
 <!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

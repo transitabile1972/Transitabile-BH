@@ -1,0 +1,19 @@
+.histDate {
+    font-size: 16px;
+}
+.id-style {
+    font-size: 16px;
+}
+.label-style {
+    padding-top: -10%;
+    margin-top: 5%;
+}
+.btn-cancel-style {
+    margin-top: -10%;
+}
+.btn-log-style {
+    margin-top: -5%;
+}
+.btn-trash-style {
+    margin-top: 10%;
+}
