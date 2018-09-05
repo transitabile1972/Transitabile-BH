@@ -9,11 +9,14 @@
     margin-top: 5%;
 }
 .btn-cancel-style {
-    margin-top: -10%;
+    margin-top: -5%;
 }
 .btn-log-style {
     margin-top: -5%;
 }
 .btn-trash-style {
     margin-top: 10%;
+}
+.cod-style {
+    display: none;
 }
