@@ -151,7 +151,7 @@
         </li>
         <li>
           <a href="deposit.html">
-            <i class="fa fa-list-alt"></i> <span>Créditos</span>
+            <i class="fa fa-credit-card"></i> <span>Créditos</span>
           </a>
         </li>
         <li>
@@ -196,9 +196,7 @@
                               <thead>
                                   <tr role="row">
                                       <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="" style="width: 521px;">Placa</th>
-                                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="" style="width: 480px;">Modelo</th>
-                                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="" style="width: 600px;">Data de Cadastro</th>
-                                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="" style="width: 600px;">Ações</th></tr>
+                                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="" style="width: 480px;">Modelo</th></tr>
                               </thead>
                               <tbody id="vehiclesList">
                                   <tr role="row" class="even">
@@ -209,8 +207,6 @@
                                     <tr>
                                         <th rowspan="1" colspan="1">Placa</th>
                                         <th rowspan="1" colspan="1">Modelo</th>
-                                        <th rowspan="1" colspan="1">Data de Cadastro</th>
-                                        <th rowspan="1" colspan="1">Ações</th>
                                     </tr>
                                 </tfoot>
                           </table>
@@ -341,7 +337,7 @@
 							
 							console.log(vLink);
 						
-							var newVehicle = '<tr role="row" class="even"><td><a href="' + vLink + '">' + response.list[ i ].plate.toUpperCase() + '</a></td><td>' + ucwords( response.list[ i ].model ) + '</td><td>' + response.list[ i ].created + '</td><td><div class="btn-group"><button type="button" onclick="' +vButtonLink+ '" class="btn btn-default btn-flat"><i class="fa fa-edit"></i></button><button type="button" onclick="' + vDeleteLink + '" class="btn btn-default btn-flat"><i class="fa fa-close"></i></button></div></td></tr>';
+							var newVehicle = '<tr role="row" class="even"><td><a href="' + vLink + '">' + response.list[ i ].plate.toUpperCase() + '</a></td><td>' + ucwords( response.list[ i ].model ) + '</td></tr>';
 						
 							listContent = listContent + newVehicle;					
 						
