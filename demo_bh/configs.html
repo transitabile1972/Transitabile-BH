@@ -225,6 +225,11 @@
                       <input type="checkbox">Permitir captura de informações importantes</label>
                   </div>
 
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" id="gps" onclick="confGps()">Desativar GPS</label>
+                  </div>
+
                   
                 </div>
 
@@ -309,6 +314,16 @@
 <!-- jQuery UI 1.11.4 -->
 <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  function confGps() {
+    var statusGps = document.getElementById('gps');
+    console.log(statusGps.checked);
+    if (statusGps.checked === true) {
+      window.localStorage.setItem("GPS", "disable");
+    }
+  }
+</script>
+
 <script>
 	$.widget.bridge('uibutton', $.ui.button);
  
