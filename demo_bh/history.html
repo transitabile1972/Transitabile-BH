@@ -289,6 +289,93 @@ $(document).ready(function(){
 	window.location.href = "index.html";
   }
 </script>
+
+
+<!-- GET USER LOGS -->
+
+  <script>
+
+    $(document).ready(function () {
+
+      var requestURL = 'https://transitabile.com.br/api.php?userid=' + window.localStorage.getItem("id") + '&type=getlogs';
+
+      $.ajax({
+        url: requestURL
+        , type: 'GET'
+        , success: function (data) {
+
+          var response = $.parseJSON(data);
+
+          if(response.results <= 0) {
+
+            var alertCode = '<div style="margin: 16px;"class="alert alert-warning alert-dismissible"><h4><i class="icon fa fa-info"></i> Registros</h4>' + response.message + '</div>';
+            $('.content').html(alertCode + $('.content').html());
+            var listCode = "<tr><th>ID</th><th>Data</th><th>Situação</th><th>Log</th></tr>";
+            $('#logsList').html(listCode);
+
+          } else {
+
+            var alertCode = '<div style="margin: 16px;"class="alert alert-info alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-info"></i> Registros</h4>' + response.message + '</div>';
+            $('.content').html( alertCode + $('.content').html());
+            var listCode = "<tr><th>ID</th><th>Data</th><th>Situação</th><th>Log</th></tr>";
+            for (var i = 0; i < response.list.length; i++) {
+              listCode += '<tr><td>' + response.list[i].id + '</td><td>' + response.list[i].created + '</td><td>' + getFormattedLogType( response.list[i].type ) + '</td><td>' + response.list[i].description + '</td></tr>';
+            }
+
+            $('#logsList').html(listCode);
+
+          }
+
+        }
+      });
+
+    });
+
+    function getFormattedLogType( type ) {
+      
+      if(type == "Add Vehicle") {
+        return "<span class='label label-success'>Veículo Adicionado</span>";
+      }
+
+      if(type == "Estacionamento") {
+        return "<span class='label label-success'>Estacionamento</span>";
+      }
+
+      if(type == "Login") {
+        return "<span class='label label-primary'>Login</span>";
+      }
+
+      if(type == "Pagamento") {
+        return "<span class='label label-warning'>Pagamento</span>";
+      }
+
+      if(type == "Contact") {
+        return "<span class='label label-success'>Contato</span>";
+      }
+
+      if(type == "Delete Vehicle") {
+        return "<span class='label label-danger'>Exclusão</span>";
+      }
+
+      if(type == "Contact") {
+        return "<span class='label label-success'>Contato</span>";
+      }
+
+      if(type == "Update Vehicle") {
+        return "<span class='label label-warning'>Atualização</span>";
+      }
+
+      if(type == "Update User") {
+        return "<span class='label label-warning'>Atualização</span>";
+      }
+
+      return "<span class='label label-primary'>Log</span>";
+
+    }
+
+  </script>
+
+  <!-- END GET USER LOGS -->
 <!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Morris.js charts -->
