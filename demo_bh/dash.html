@@ -550,26 +550,30 @@ function codeLatLng( position ) {
 						
 //							var newVehicle = '<tr role="row" class="even"><td><a href="' + vLink + '">' + response.list[ i ].plate.toUpperCase() + '</a></td><td>' + ucwords( response.list[ i ].model ) + '</td><td>' + response.list[ i ].created + '</td><td><div class="btn-group"><button type="button" onclick="' +vButtonLink+ '" class="btn btn-default btn-flat"><i class="fa fa-edit"></i></button><button type="button" onclick="' + vDeleteLink + '" class="btn btn-default btn-flat"><i class="fa fa-close"></i></button></div></td></tr>';
                             
-                            var statusVeiculo = "";
+                          var statusVeiculo = "";
 
 //                            switch(response.list[ i ].status) {
                     switch(i) {
                         case 1:
-                            statusVeiculo = "<td><span class='label label-success'>Estacionado</span></td><td><div class='btn-group'><a href='editCar.html'><button type='button' class='btn btn-default btn-flat'>Checkout</button></a></div></td>";
+                            statusVeiculo = "<span class='label label-success'>Estacionado</span>";
                             
                             break;
                         case 2:
-                            statusVeiculo = "<td><span class='label label-danger'>Tempo Esgotado</span></td><td><div class='btn-group'><a href='editCar.html'><button type='button' class='btn btn-default btn-flat'>Renovar</button></a></div></td>";
+                            statusVeiculo = "<span class='label label-danger'>Tempo Esgotado</span>";
 
                             break;
                         default:
-                            statusVeiculo = "<td><span class='label label label-info'>Inativo</span></td><td><div class='btn-group'></div><a href='search.html'><button type='button' class='btn btn-default btn-flat'>Estacionar</button></a></div></td>";
+                            statusVeiculo = "<span class='label label label-info'>Inativo</span>";
 
                                      }
-                    var newVehicle = '<tr role="row" class="even">   <td>' + response.list[ i ].model  + ' - ' + response.list[ i ].plate + '</td>   <td>' + statusVeiculo  + '</td><td></td><</tr>';
-                        listContent = listContent + newVehicle;	
+                    var newVehicle = '<center><div class="col-md-2 col-xs-6">' + response.list[ i ].model  + '</div>  <div class="col-md-1 col-xs-6" >' + response.list[ i ].plate + '</div> <div class="col-md-2 col-xs-12" style="margin-bottom:10px;">' + statusVeiculo  + '</div><div class="col-md-1 col-xs-4">INÍCIO</div><div class="col-md-1 col-xs-4">TEMPO</div><div class="col-md-1 col-xs-4">FIM</div> <div class="col-md-1 col-xs-6" style="padding: 2px;"><a href="#"><button type="button" class="btn btn-info"  style="width: 100%;font-size:0.9rem; ">ESTACIONAR</button></a></div><div class="col-md-1 col-xs-6" style="padding: 2px;"><a href="#"><button type="button" class="btn btn-success"  style="width: 100%;font-size:0.9rem; ">BÔNUS</button></a></div><div class="col-md-1 col-xs-6" style="padding: 2px;"><a href="#"><button type="button" class="btn btn-primary"  style="width: 100%;font-size:0.9rem; ">COMPRAR</button></a></div><div class="col-md-1 col-xs-6" style="padding: 2px;"><a href="#"><button type="button" class="btn btn-danger"  style="width: 100%;font-size:0.9rem; ">GPS</button></a></div></center?';
+                        listContent = listContent + newVehicle; 
                             
-                            
+
+
+
+
+                        
                             
                             
                             
@@ -596,6 +600,7 @@ function codeLatLng( position ) {
 			}					
 		   
 		});
+
     
         
 //var settings = {
