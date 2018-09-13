@@ -380,6 +380,7 @@
     <div class="pull-right hidden-xs">
       <b>Versão</b> 3.1.0
     </div>
+    <div><img src="dist/img/rotativo.jpg" alt="Logo Rotativo Digital" width="150px"></div>
 	Transitabile Sistema de Controle de Vagas Automotivas Ltda<br>
 	CNPJ: 28.729.743/0001-16<br>
 	www.transitabile.com.br<br>
@@ -401,7 +402,11 @@
 <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
-  window.localStorage.setItem("GPS", "enable");
+  var statusGps = window.localStorage.getItem('GPS');
+  console.log(statusGps);
+  if (statusGps == null) {
+    window.localStorage.setItem("GPS", "enable");
+  }  
 </script>
 <script>    
     
@@ -452,19 +457,17 @@
 //                            switch(response.list[ i ].status) {
                     switch(i) {
                         case 1:
-                            statusVeiculo = "<td><span class='label label-success'>Estacionado</span></td><td><div class='btn-group'><a href='editCar.html'><button type='button' class='btn btn-default btn-flat'>Checkout</button></a></div></td>";
+                            statusVeiculo = "<span class='label label-success'>Estacionado</span>";
                             
                             break;
                         case 2:
-                            statusVeiculo = "<td><span class='label label-danger'>Tempo Esgotado</span></td><td><div class='btn-group'><a href='editCar.html'><button type='button' class='btn btn-default btn-flat'>Renovar</button></a></div></td>";
-
+                            statusVeiculo = "<span class='label label-danger'>Tempo Esgotado</span>";
                             break;
                         default:
-                            statusVeiculo = "<td><span class='label label label-info'>Inativo</span></td><td><div class='btn-group'></div><a href='search.html'><button type='button' class='btn btn-default btn-flat'>Estacionar</button></a></div></td>";
-
+                            statusVeiculo = "<span class='label label label-info'>Inativo</span>";
                                      }
-                    var newVehicle = '<tr role="row" class="even">   <td>' + response.list[ i ].model  + ' - ' + response.list[ i ].plate + '</td>   <td>' + statusVeiculo  + '</td><td></td><</tr>';
-                        listContent = listContent + newVehicle;	
+                    var newVehicle = '<center><div class="col-md-2 col-xs-6">' + response.list[ i ].model  + '</div>  <div class="col-md-1 col-xs-6" >' + response.list[ i ].plate + '</div> <div class="col-md-2 col-xs-12" style="margin-bottom:10px;">' + statusVeiculo  + '</div><div class="col-md-1 col-xs-4">INÍCIO</div><div class="col-md-1 col-xs-4">TEMPO</div><div class="col-md-1 col-xs-4">FIM</div> <div class="col-md-1 col-xs-6" style="padding: 2px;"><a href="resume.html"><button type="button" class="btn btn-info"  style="width: 100%;font-size:0.9rem; ">ESTACIONAR</button></a></div><div class="col-md-1 col-xs-6" style="padding: 2px;"><a href="#"><button type="button" class="btn btn-success"  style="width: 100%;font-size:0.9rem; ">BÔNUS</button></a></div><div class="col-md-1 col-xs-6" style="padding: 2px;"><a href="deposit.html"><button type="button" class="btn btn-primary"  style="width: 100%;font-size:0.9rem; ">COMPRAR</button></a></div><div class="col-md-1 col-xs-6" style="padding: 2px;"><a href="gps.html"><button type="button" class="btn btn-danger"  style="width: 100%;font-size:0.9rem; ">GPS</button></a></div></center?';
+                        listContent = listContent + newVehicle; 	
                             
                             
                             
