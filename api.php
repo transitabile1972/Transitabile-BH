@@ -4,6 +4,8 @@
 	
 	// Allow Cross Origin:
 	header("Access-Control-Allow-Origin: *");
+	header("access-control-allow-origin: https://pagseguro.uol.com.br");
+	header("access-control-allow-origin: https://sandbox.pagseguro.uol.com.br");
 	
 	// UTF8:
 	header("Content-type: text/html; charset=utf-8");
@@ -20,6 +22,102 @@
 	$request = new stdClass();
 	$request->status = "failed";
 
+	// PagSeguro Requests:
+	if( !empty( $_POST['notificationType'] ) && !empty( $_POST['notificationCode'] ) ) {
+
+		$notificationCode = str_replace("-","", $_POST['notificationCode']);
+
+		// Define time:
+		date_default_timezone_set('America/Sao_Paulo');
+
+		// Payment Support:
+		require_once('psconfig.php');
+		require_once('psutils.php');
+
+		$params = array(
+			'email' => $PAGSEGURO_EMAIL,
+			'token' => $PAGSEGURO_TOKEN
+		);
+		$header = array();
+
+		$header = array('Content-Type' => 'application/json; charset=UTF-8;');
+		$response = curlExec("https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/notifications/".$notificationCode."?email=".$PAGSEGURO_EMAIL."&token=".$PAGSEGURO_TOKEN);
+		$transaction_obj = simplexml_load_string($response);
+
+		$ref = $transaction_obj->reference;
+
+		$header = array('Content-Type' => 'application/json; charset=UTF-8;');
+		$response = curlExec("https://ws.sandbox.pagseguro.uol.com.br/v3/transactions?email=".$PAGSEGURO_EMAIL."&token=".$PAGSEGURO_TOKEN."&reference=".$ref);
+		$transaction_obj = simplexml_load_string($response);
+
+		$status = $transaction_obj->transactions->transaction->status;
+
+		$finalUserID = null;
+		$finalValue = null;
+
+		$sql = "SELECT user_id, value FROM orders WHERE code = '".$ref."'";
+		$servername = "localhost";
+		$username = "trans593_userbh";
+		$password = "NGc0MwTvaI0r";
+		$databasename = "trans593_bh";
+		$conn = new mysqli( $servername, $username, $password, $databasename );
+		$result = $conn->query($sql);
+
+		if ($result->num_rows > 0) {
+
+			$row = $result->fetch_assoc();
+			$finalUserID = $row["user_id"];
+			$finalValue = $row["value"];
+
+		}
+
+		if( $status == 3 || $status == 4 ){
+			// PAGAMENTO CONFIRMADO
+			// Adiciona valor a carteira do user:
+			$sql = "UPDATE users SET balance = balance + ".$finalValue." WHERE id = ".$finalUserID;
+			$result = $conn->query($sql);
+		} else {
+			//PAGAMENTO PENDENTE...
+		}
+
+		$statusText = "Processando";
+
+		switch ($status) {
+			case 1:
+				$statusText = "Processando";
+				break;
+			case 2:
+				$statusText = "Processando";
+				break;
+			case 3:
+				$statusText = "Paga";
+				break;
+			case 4:
+				$statusText = "Disponível";
+				break;
+			case 5:
+				$statusText = "Em disputa";
+				break;
+			case 6:
+				$statusText = "Devolvida";
+				break;
+			case 7:
+				$statusText = "Cancelada";
+				break;
+			default:
+				$statusText = "Processando";
+		}
+
+		$sql = "UPDATE orders SET status = '".$statusText."', modified = 'NOW()' WHERE code = '".$ref."'";
+		$result = $conn->query($sql);
+
+		$msg = "Estado da compra atualizada para: ".$statusText;
+
+		saveLog( $conn, $finalUserID, "Compra", "" . $msg );
+
+	}
+
+
 	if ( empty( $_GET['userid'] ) || empty( $_GET['type'] ) ) {
 	
 		$request->message = 'Erro: Parâmetros de requisição inválidos.';
@@ -29,9 +127,9 @@
 	} else {
 		
 		$servername = "localhost";
-		$username = "trans593_user";
-		$password = "32486502transitabile";
-		$databasename = "trans593_app";
+		$username = "trans593_userbh";
+		$password = "NGc0MwTvaI0r";
+		$databasename = "trans593_bh";
 		
 		$userid = $_GET['userid'];
 		$type = $_GET['type'];
@@ -99,7 +197,43 @@
 				case "autorizacao":
 					getAutorizacao();
 					break;
-					
+				
+				case "getlogs":
+					getUserLogs( $conn );
+					break;
+
+				case "gettic":
+					getTic($conn);
+					break;
+
+				case "updateSecretKey":
+					updateSecretKey($conn, "234");
+					break;
+
+				case "getCurrentSecretKey":
+					getCurrentSecretKey($conn);
+					break
+
+				case "getPagSeguroSession":
+					getPagSeguroSession($conn);
+					break;	
+
+				case "getBalance":
+					getBalance($conn);
+					break;	
+
+				case "pay":
+					pay($conn);
+					break;	
+
+				case "setVehicleStatus":
+					setVehicleStatus($conn);
+					break;	
+
+				case "getStatusByReference":
+					getStatusByReference($conn);
+					break;			
+
 				default:
 					$request->message = 'Erro: Tipo de requisição inválido ('.$type.').';
 					$request = json_encode( $request );
@@ -808,6 +942,438 @@
 		$result = $conn->query($sql);
 		
 	}
+
+	function getUserLogs( $conn ) {
+
+		// Request example: http://transitabile.com.br/api.php?userid=1&type=getlogs
+			
+		if ( empty($_GET['userid']) ) {
+
+			$request->message = "Erro: Parâmetros de requisição 'getuserlogs' inválidos.";
+			$request = json_encode( $request );
+			showResponse( $request );
+			$conn->close();
+
+		} else {
+			
+			$userID = strtolower( $_GET['userid'] );	
+
+			$sql = "SELECT * FROM logs WHERE user_id ='".$userID."' ORDER BY modified DESC";
+			$result = $conn->query($sql);
+
+			$results = $result->num_rows;
+		
+			$request = new stdClass();
+			$request->status = "success";
+			$request->results = $results;
+			$request->message = $results." logs encontrados.";
+
+			$list = array();
+		
+			while( $row = $result->fetch_assoc() ) {
+	
+				$list[] = array('id' => $row["id"], 'type' => $row["type"], 'description' => $row["description"], 'created' => $row["created"]);
+	
+			}
+
+			$request->list = $list;
+	
+			$request = json_encode( $request );
+			showResponse( $request );
+			$conn->close();
+			
+		}
+		
+	}	
+
+	function getStatusByReference($conn) {
+
+		// Request example: http://transitabile.com.br/api.php?userid=22&type=getStatusByReference&ref=601097D70B9846E3A83CFBDD94DE0912
+
+		// Define time:
+		date_default_timezone_set('America/Sao_Paulo');
+
+		// Payment Support:
+		require_once('psconfig.php');
+		require_once('psutils.php');
+
+		$params = array(
+			'email' => $PAGSEGURO_EMAIL,
+			'token' => $PAGSEGURO_TOKEN
+		);
+		$header = array();
+
+		$ref = $_GET['ref'];
+	
+		$header = array('Content-Type' => 'application/json; charset=UTF-8;');
+		$response = curlExec("https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/".$ref."?email=".$PAGSEGURO_EMAIL."&token=".$PAGSEGURO_TOKEN);
+		$transaction_obj = simplexml_load_string($response);
+		
+		/*
+
+		Check Status:
+
+		1	Aguardando pagamento: o comprador iniciou a transação, mas até o momento o PagSeguro não recebeu nenhuma informação sobre o pagamento.
+		2	Em análise: o comprador optou por pagar com um cartão de crédito e o PagSeguro está analisando o risco da transação.
+		3	Paga: a transação foi paga pelo comprador e o PagSeguro já recebeu uma confirmação da instituição financeira responsável pelo processamento.
+		4	Disponível: a transação foi paga e chegou ao final de seu prazo de liberação sem ter sido retornada e sem que haja nenhuma disputa aberta.
+		5	Em disputa: o comprador, dentro do prazo de liberação da transação, abriu uma disputa.
+		6	Devolvida: o valor da transação foi devolvido para o comprador.
+		7	Cancelada: a transação foi cancelada sem ter sido finalizada.
+
+		*/
+
+		$status = $transaction_obj->status;
+
+		$finalUserID = null;
+		$finalValue = null;
+
+		$sql = "SELECT user_id, value FROM orders WHERE code = '".$ref."'";
+		$result = $conn->query($sql);
+
+		if ($result->num_rows > 0) {
+
+			$row = $result->fetch_assoc();
+			$finalUserID = $row["user_id"];
+			$finalValue = $row["value"];
+
+		}
+
+		if( $status == 3 || $status == 4 ){
+			// PAGAMENTO CONFIRMADO
+			// Adiciona valor a carteira do user:
+			$sql = "UPDATE users SET balance = balance + ".$finalValue." WHERE id = ".$finalUserID;
+			$result = $conn->query($sql);
+		} else {
+			//PAGAMENTO PENDENTE...
+		}
+
+		$statusText = "Processando";
+
+		switch ($status) {
+			case 1:
+				$statusText = "Processando";
+				break;
+			case 2:
+				$statusText = "Processando";
+				break;
+			case 3:
+				$statusText = "Paga";
+				break;
+			case 4:
+				$statusText = "Disponível";
+				break;
+			case 5:
+				$statusText = "Em disputa";
+				break;
+			case 6:
+				$statusText = "Devolvida";
+				break;
+			case 7:
+				$statusText = "Cancelada";
+				break;
+			default:
+				$statusText = "Processando";
+		}
+
+		$sql = "UPDATE orders SET status = '".$statusText."', modified = 'NOW()' WHERE code = '".$ref."'";
+		$result = $conn->query($sql);
+
+		$msg = "Estado da compra atualizada para: ".$statusText;
+
+		saveLog( $conn, $finalUserID, "Compra", "" . $msg );
+
+	}
+
+	function updateSecretKey( $conn, $newKey ) {
+
+		// Request example: http://transitabile.com.br/api.php?userid=1&type=updateSecretKey
+				
+		$sql = "UPDATE secretkey SET value='".$newKey."' WHERE id = '1'";
+		$result = $conn->query($sql);
+		
+	}
+
+	function getCurrentSecretKey( $conn ) {
+
+		// Request example: http://transitabile.com.br/api.php?userid=1&type=getCurrentSecretKey
+				
+		$sql = "SELECT value FROM secretkey WHERE id = '1'";
+		$result = $conn->query($sql);
+
+		$finalResult = null;
+
+		if ($result->num_rows > 0) {
+			$row = $result->fetch_assoc();
+			//echo $row["value"];
+			$finalResult = $row["value"];
+			return $finalResult;
+		} else {
+			//echo "0 results";
+			return $finalResult;
+		}
+		
+	}	
+
+	function getTicket($conn){
+
+		$request = new stdClass();
+		$request->status = "failed";
+			
+		if ( empty( $_GET['vehicleid'] ) ) {
+
+			$request->message = "Erro: Parâmetros de requisição 'getTickets' inválidos.";
+			$request = json_encode( $request );
+			showResponse( $request );
+			$conn->close();
+
+		} else {
+
+			$vehicleid = strtolower( $_GET['vehicleid'] );
+
+			$sql = "SELECT * FROM tickets WHERE vehicle_id = '".$vehicleid."'";
+			$result = $conn->query( $sql );
+
+			$results = $result->num_rows;
+
+			$request->status = "success";
+			$request->results = $results;
+			$request->message = $results." tickets encontrados.";
+
+			$list = array();
+
+			while( $row = $result->fetch_assoc() ) {
+
+				$list[] = array('id' => $row["id"], 'userid' => $row["user_id"], 'vehicleid' => $row["vehicle_id"], 'parklotid' => $row["parklot_id"], 'type' => $row["type"], 'value' => $row["value"], 'total_value' => $row["total_value"], 'status' => $row["status"], 'created' => $row["created"], 'modified' => $row["modified"], 'iniciohorario' => $row["iniciohorario"], 'fimhorario' => $row["fimhorario"], 'tempopermanencia' => $row["tempopermanencia"]);
+
+			}
+
+			$request->list = $list;
+
+			$request = json_encode( $request );
+			showResponse( $request );
+			$conn->close();		
+
+		}
+	}
+
+	function getTic( $conn ) {
+		
+		// Request example: http://transitabile.com.br/api.php?userid=8&type=getvehicles
+		
+		$request = new stdClass();
+		$request->status = "failed";
+		
+		if ( empty( $_GET['vehicleid'] ) ) {
+
+			$request->message = "Erro: Parâmetros de requisição 'getTic' inválidos. vehicleid VAZIO";
+			$request = json_encode( $request );
+			showResponse( $request );
+			$conn->close();
+
+		} else {
+			
+			$vehicleid = strtolower( $_GET['vehicleid'] );
+			
+			// $sql = "SELECT v.id, v.user_id, v.type, v.name, v.plate, v.model, v.status, v.created, v.modified, tickets.id, tickets.user_id, tickets.vehicle_id, tickets.parklot_id, tickets.type, tickets.value, tickets.total_value, tickets.status, tickets.iniciohorario, tickets.fimhorario, tickets.tempopermanencia FROM vehicles v JOIN tickets t ON v.id = t.vehicle_id WHERE user_id = '".$userid."'";
+			$sql = "SELECT t.id, t.user_id, t.vehicle_id, t.parklot_id, t.type, t.value, t.total_value, t.status, t.iniciohorario, t.fimhorario, t.tempopermanencia, v.id, v.user_id, v.type, v.name, v.plate, v.model, v.status, v.created, v.modified FROM tickets t JOIN vehicles v ON t.vehicle_id = v.id WHERE v.user_id = '".$userid."'";
+            
+            // pegar id veiculo******
+			// SELECT t.id, t.user_id, t.vehicle_id, t.parklot_id, t.type, t.value, t.total_value, t.status, t.iniciohorario, t.fimhorario, t.tempopermanencia FROM tickets t JOIN vehicles v ON t.vehicle_id = v.id WHERE t.vehicle_id = 51
+            
+			$result = $conn->query( $sql );
+
+			$results = $result->num_rows;
+				
+			$request->status = "success";
+			$request->results = $results;
+			$request->message = $results." veículos encontrados.";
+			
+			$list = array();
+			
+			while( $row = $result->fetch_assoc() ) {
+				
+				$list[] = array('id' => $row["v.id"], 'userid' => $row["v.user_id"], 'type' => $row["v.type"], 'name' => $row["v.name"], 'plate' => $row["v.plate"], 'model' => $row["v.model"], 'status' => $row["v.status"], 'created' => $row["v.created"], 'modified' => $row["v.modified"], 'ticketid' => $row["tickets.id"], 'ticketuserid' => $row["tickets.user_id"], 'ticketvehicleid' => $row["tickets.vehicle_id"], 'ticketparklotid' => $row["tickets.parklot_id"], 'tickettypeid' => $row["tickets.type"], 'ticketvalueid' => $row["tickets.value"], 'tickettotalvalueid' => $row["tickets.total_value"], 'ticketstatusid' => $row["tickets.status"], 'ticketiniciohorarioid' => $row["tickets.iniciohorario"], 'ticketfimhorarioid' => $row["tickets.fimhorario"], 'tickettempopermanenciaid' => $row["tickets.tempopermanencia"]);
+				
+			}
+			
+			$request->list = $list;
+			
+			$request = json_encode( $request );
+			showResponse( $request );
+			$conn->close();		
+			
+		}
+		
+	}
+
+	function getPagSeguroSession($conn) {
+
+		// Request example: http://transitabile.com.br/api.php?userid=1&type=getPagSeguroSession
+
+		// Define time:
+		date_default_timezone_set('America/Sao_Paulo');
+
+		// Payment Support:
+		require_once('psconfig.php');
+		require_once('psutils.php');
+		
+		$params = array(
+			'email' => $PAGSEGURO_EMAIL,
+			'token' => $PAGSEGURO_TOKEN
+		);
+		$header = array();
+
+		$response = curlExec($PAGSEGURO_API_URL."/sessions", $params, $header);
+		$json = json_decode(json_encode(simplexml_load_string($response)));
+		$sessionCode = $json->id;
+
+        echo $sessionCode;
+
+	}
+
+	function getBalance( $conn ) {
+
+		// Request example: 'http://transitabile.com.br/api.php?userid=22&type=getBalance'
+
+		$request = new stdClass();
+		$request->status = "failed";
+		
+		if ( empty( $_GET['userid'] ) ) {
+
+			$request->message = "Erro: Parâmetros de requisição 'getBalance' inválidos.";
+			$request = json_encode( $request );
+			showResponse( $request );
+			$conn->close();
+
+		} else {
+
+			$userid = $_GET['userid'];
+							
+			$sql = "SELECT balance FROM users WHERE id = '".$userid."'";
+			$result = $conn->query($sql);
+
+			$finalResult = null;
+
+			if ($result->num_rows > 0) {
+				$row = $result->fetch_assoc();
+				//echo $row["value"];
+				$finalResult = $row["balance"];
+				$request->status = "success";
+				$request->balance = $finalResult;
+				$request = json_encode( $request );
+				showResponse( $request );
+				$conn->close();
+			} else {
+				$request->message = "Erro: Desculpe, não foi possível obter o valor da carteira, por favor tente novamente.";
+				$request = json_encode( $request );
+				showResponse( $request );
+				$conn->close();
+			}
+			
+		}
+	}
+
+	function pay($conn) {
+
+		// Request example: http://transitabile.com.br/api.php?userid=22&type=pay&selectedCredits=10&brand=visa&token=fbeba73f01f049ea8f62bf7d87c15c77&senderHash=6cf00b801aff66cb8b4f0083e1325144b6d25764f83dd3858dd946262616f93b&amount=100.00&shippingCoast=1.00&cardNumber=4111%201111%201111%201111&cardExpiry=12%2F2030&cardCVC=123&installments=1&installmentValue=101
+
+		// Define time:
+		date_default_timezone_set('America/Sao_Paulo');
+
+		// Payment Support:
+		require_once('psconfig.php');
+		require_once('psutils.php');
+
+		$params = array(
+			'email' => $PAGSEGURO_EMAIL,
+			'token' => $PAGSEGURO_TOKEN
+		);
+		$header = array();
+
+		$userid = $_GET['userid'];
+		$selectedCredits = $_GET['selectedCredits'];
+		$brand = $_GET['brand'];
+		$token = $_GET['token'];
+		$amount = $_GET['amount'];
+		$senderHash = $_GET['senderHash'];
+		$shippingCoast = $_GET['shippingCoast'];
+		$cardNumber = $_GET['cardNumber'];
+		$cardExpiry = $_GET['cardExpiry'];
+		$cardCVC = $_GET['cardCVC'];
+		$installments = $_GET['installments'];
+		$installmentValue = $_GET['installmentValue'];
+
+		$creditCardToken = htmlspecialchars($token);
+		$senderHash = htmlspecialchars($senderHash);
+	
+		$itemAmount = number_format($amount, 2, '.', '');
+		$shippingCoast = number_format($shippingCoast, 2, '.', '');
+		$installmentValue = number_format($installmentValue, 2, '.', '');
+		$installmentsQty = $installments;
+
+		$referenceCode = generateRandomString();
+	
+		$params = array(
+			'email'                     => $PAGSEGURO_EMAIL,  
+			'token'                     => $PAGSEGURO_TOKEN,
+			'creditCardToken'           => $creditCardToken,
+			'senderHash'                => $senderHash,
+			'receiverEmail'             => $PAGSEGURO_EMAIL,
+			'paymentMode'               => 'default', 
+			'paymentMethod'             => 'creditCard', 
+			'currency'                  => 'BRL',
+			// 'extraAmount'               => '1.00',
+			'itemId1'                   => '0001',
+			'itemDescription1'          => 'Transitabile',  
+			'itemAmount1'               => $itemAmount,  
+			'itemQuantity1'             => 1,
+			'reference'                 => $referenceCode,
+			'senderName'                => 'Transitabile App',
+			'senderCPF'                 => '54793120652',
+			'senderAreaCode'            => 83,
+			'senderPhone'               => '999999999',
+			'senderEmail'               => 'v97275341714831719209@sandbox.pagseguro.com.br',
+			'shippingAddressStreet'     => 'Address',
+			'shippingAddressNumber'     => '1234',
+			'shippingAddressDistrict'   => 'Bairro',
+			'shippingAddressPostalCode' => '58075000',
+			'shippingAddressCity'       => 'João Pessoa',
+			'shippingAddressState'      => 'PB',
+			'shippingAddressCountry'    => 'BRA',
+			'shippingType'              => 1,
+			'shippingCost'              => $shippingCoast,
+			'maxInstallmentNoInterest'      => 2,
+			'noInterestInstallmentQuantity' => 2,
+			'installmentQuantity'       => $installmentsQty,
+			'installmentValue'          => $installmentValue,
+			'creditCardHolderName'      => 'Chuck Norris',
+			'creditCardHolderCPF'       => '54793120652',
+			'creditCardHolderBirthDate' => '01/01/1990',
+			'creditCardHolderAreaCode'  => 83,
+			'creditCardHolderPhone'     => '999999999',
+			'billingAddressStreet'     => 'Address',
+			'billingAddressNumber'     => '1234',
+			'billingAddressDistrict'   => 'Bairro',
+			'billingAddressPostalCode' => '58075000',
+			'billingAddressCity'       => 'João Pessoa',
+			'billingAddressState'      => 'PB',
+			'billingAddressCountry'    => 'BRA'
+		);
+	
+		$header = array('Content-Type' => 'application/json; charset=UTF-8;');
+		$response = curlExec($PAGSEGURO_API_URL."/transactions", $params, $header);
+
+		$xml_obj = simplexml_load_string($response);
+		$transactionCode = str_replace("-","", $xml_obj->code);
+		echo "Transaction code = ".$transactionCode;
+
+		$sql = "INSERT INTO orders (user_id, code, value, status, created, modified ) VALUES ('".$userid."', '".$referenceCode."', '".$selectedCredits."', 'Processando', NOW(), NOW())";
+		$result = $conn->query($sql);
+
+		saveLog( $conn, $userid, "Pagamento", "Comprou R$ ".$selectedCredits." em créditos.");
+
+	}
 	
 	function setSale( $userid, $type, $value, $created, $modified, $userid ) {
 		
@@ -934,6 +1500,50 @@
 		  echo $response;
 		}
 		
+	}
+
+	function setVehicleStatus( $conn ) {
+
+		// Request example: http://transitabile.com.br/api.php?userid=22&type=setVehicleStatus&vid=32&status=idle
+
+		$request = new stdClass();
+
+		if ( empty( $_GET['userid'] ) || empty( $_GET['vid'] ) || empty( $_GET['status'] ) ) {
+
+			$request->message = "Erro: Parâmetros de requisição 'park' inválidos.";
+			$request = json_encode( $request );
+			showResponse( $request );
+			$conn->close();
+
+		} else {
+			
+			$userid = strtolower( $_GET['userid'] );
+			$vid = strtolower( $_GET['vid'] );
+			$status = strtolower( $_GET['status'] );
+						
+			$sql = "UPDATE vehicles SET status = '".$status."' WHERE id = ".$vid;
+			$result = $conn->query($sql);
+			
+			if( $result === true ) {
+			
+				$request->status = "success";
+				$request->message = "Estado do veículo atualizado.";
+				$request = json_encode( $request );
+				showResponse( $request );
+				saveLog( $conn, $_GET['userid'], "Estacionamento", "Estado do veículo atualizado para: ".$status.", id: ".$vid );
+				$conn->close();
+				
+			} else {
+				
+				$request->message = "Erro: Não foi possível atualizar o estado do veículo, tente novamente mais tarde (".$conn->error.")";
+				$request = json_encode( $request );
+				showResponse( $request );
+				$conn->close();
+				
+			}		
+			
+		}
+
 	}
 	
 	// Ping

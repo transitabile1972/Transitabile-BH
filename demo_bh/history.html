@@ -169,77 +169,44 @@
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper" style="min-height: 873px;">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>Histórico<small>Registro de Atividades
-</small>
-      </h1>
-      
-    </section>
+    <div class="content-wrapper" style="min-height: 873px;">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>Histórico
+          <small>Registro de Atividades
+          </small>
+        </h1>
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="row">
-<div class="col-md-6">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Compra de Créditos</h3>
+      </section>
 
-              
+      <!-- Main content -->
+      <section class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box">
+              <div class="box-header">
+                <h3 class="box-title">Registros (Logs)</h3>
+
+
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                  <tbody id="logsList">
+                      <tr>
+                          <td>Carregando...</td>
+                        </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.box-body -->
             </div>
-            <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
-              <table class="table table-hover">
-                <tbody><tr>
-                  <th>Data</th>
-                  <th>Situação</th>
-                  <th>Log</th>
-                </tr>
-                <tr>
-                  <td><span class="histDate">11-7-2014</span></td>
-                  <td><span id="lblStatus" class="label label-success">Aprovada</span></td>
-                  <td><button id="btn_log" type="button" class="btn btn-success btn-xs btn-log-style" data-toggle="popover" data-placement="top" data-content="A compra via PagSeguro foi aprovada com sucesso.">Detalhes</button></td>
-                  <td><button id="btnCancel" type="button" class="btn btn-danger btn-xs btn-cancel-style" onclick="btnCancel()">Cancelar</button></td>
-                </tr>
-                <tr>
-                  <td><span class="histDate">11-7-2014</span></td>
-                  <td><span id="lblStatus" class="label label-warning">Pendente</span></td>
-                  <td><button id="btn_log" type="button" class="btn btn-success btn-xs btn-log-style" data-toggle="popover" data-placement="top" data-content="Aguardando resposta da operadora.">Detalhes</button></td>
-                  <td><button id="btnCancel" type="button" class="btn btn-danger btn-xs btn-cancel-style" onclick="btnCancel()">Cancelar</button></td>
-                </tr>
-                <tr>
-                  <td><span class="histDate">11-7-2014</span></td>
-                  <td><span id="lblStatus" class="label label-primary">Cancelada</span></td>
-                  <td><button id="btn_log" type="button" class="btn btn-success btn-xs btn-log-style" data-toggle="popover" data-placement="top" data-content="Ação cancelada pelo usuário.">Detalhes</button></td>
-                  <td><button id="btnCancel" type="button" class="btn btn-danger btn-xs btn-cancel-style" onclick="btnCancel()">Cancelar</button></td>
-                </tr>
-                <tr>
-                  <td><span class="histDate">11-7-2014</span></td>
-                  <td><span id="lblStatus" class="label label-danger">Negada</span></td>
-                  <td><button id="btn_log" type="button" class="btn btn-success btn-xs btn-log-style" data-toggle="popover" data-placement="top" data-content="Compra não permitida pela operadora.">Detalhes</button></td>
-                  <td><button id="btnCancel" type="button" class="btn btn-danger btn-xs btn-cancel-style" onclick="btnCancel()">Cancelar</button></td>
-                </tr>
-              </tbody></table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>         
-        
+            <!-- /.box -->
           </div>
 
-          <!-- Horizontal Form -->
-          
-          <!-- /.box -->
-          <!-- general form elements disabled -->
-          
-          <!-- /.box -->
         </div>
 
-      </div>
-
-    </section>
+      </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -310,16 +277,16 @@ $(document).ready(function(){
 
             var alertCode = '<div style="margin: 16px;"class="alert alert-warning alert-dismissible"><h4><i class="icon fa fa-info"></i> Registros</h4>' + response.message + '</div>';
             $('.content').html(alertCode + $('.content').html());
-            var listCode = "<tr><th>ID</th><th>Data</th><th>Situação</th><th>Log</th></tr>";
+            var listCode = "<tr><th>Data</th><th>Situação</th><th>Log</th></tr>";
             $('#logsList').html(listCode);
 
           } else {
 
             var alertCode = '<div style="margin: 16px;"class="alert alert-info alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-info"></i> Registros</h4>' + response.message + '</div>';
             $('.content').html( alertCode + $('.content').html());
-            var listCode = "<tr><th>ID</th><th>Data</th><th>Situação</th><th>Log</th></tr>";
+            var listCode = "<tr><th>Data</th><th>Situação</th><th>Log</th></tr>";
             for (var i = 0; i < response.list.length; i++) {
-              listCode += '<tr><td>' + response.list[i].id + '</td><td>' + response.list[i].created + '</td><td>' + getFormattedLogType( response.list[i].type ) + '</td><td>' + response.list[i].description + '</td></tr>';
+              listCode += '<tr><td>' + response.list[i].id + '</td><td>' + response.list[i].created + '</td><td>' + getFormattedLogType( response.list[i].type ) + '</td><td><button id="btn_log" type="button" class="btn btn-success btn-xs btn-log-style" data-toggle="popover" data-placement="top" data-content="+ response.list[i].description +">Detalhes</button></td><td><button id="btnCancel" type="button" class="btn btn-danger btn-xs btn-cancel-style" onclick="btnCancel()">Cancelar</button></td></tr>';
             }
 
             $('#logsList').html(listCode);

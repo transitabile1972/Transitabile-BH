@@ -343,7 +343,8 @@ function codeLatLng( position ) {
         areaAtual = results[0].address_components[2].short_name;   
           window.localStorage.setItem( "_ruaAtual", ruaAtual );
           window.localStorage.setItem( "_areaAtual", areaAtual );
-        if (results[0]) {
+        var statusGps = window.localStorage.getItem('GPS');  
+        if (results[0] && statusGps == 'enable') {
          //formatted address
             end = results[0].formatted_address;
         //find country name
