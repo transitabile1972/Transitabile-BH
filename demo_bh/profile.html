@@ -249,7 +249,7 @@
                   <label for="inputCPF" class="col-sm-2 control-label">CPF/CNPJ</label>
 
                   <div class="col-sm-10">
-                    <input name="cpf" type="text" class="form-control" id="inputCPF" placeholder="CPF/CNPJ" disabled>
+                    <input name="cpf" type="number" class="form-control" id="inputCPF" placeholder="CPF/CNPJ" onkeydown="maskNI()" disabled>
                   </div>
                 </div>                
 
@@ -446,6 +446,45 @@
   }
   
 </script>
+  
+<script>
+  var nationalId = document.getElementById("inputCPF").value;
+      console.log(nationalId);
+  function fMasc(objeto,mascara) {
+				obj=objeto
+				masc=mascara
+				setTimeout("fMascEx()",1)
+			}
+			function fMascEx() {
+				obj.value=masc(obj.value)
+			}
+      function mCNPJ(cnpj){
+				cnpj=cnpj.replace(/\D/g,"")
+				cnpj=cnpj.replace(/^(\d{2})(\d)/,"$1.$2")
+				cnpj=cnpj.replace(/^(\d{2})\.(\d{3})(\d)/,"$1.$2.$3")
+				cnpj=cnpj.replace(/\.(\d{3})(\d)/,".$1/$2")
+				cnpj=cnpj.replace(/(\d{4})(\d)/,"$1-$2")
+				return cnpj
+			}
+			function mCPF(cpf){
+				cpf=cpf.replace(/\D/g,"")
+				cpf=cpf.replace(/(\d{3})(\d)/,"$1.$2")
+				cpf=cpf.replace(/(\d{3})(\d)/,"$1.$2")
+				cpf=cpf.replace(/(\d{3})(\d{1,2})$/,"$1-$2")
+				return cpf
+			}
+      
+  function maskNI() {
+    	var nationalId = document.getElementById("inputCPF").value;
+      console.log(nationalId);
+      if(nationalId.length > 11) {
+        fMasc( this, mCNPJ );
+      } else {
+        fMasc( this, mCPF );
+      }
+  }
+</script>
+
 <!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Morris.js charts -->

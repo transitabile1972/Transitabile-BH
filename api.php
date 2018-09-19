@@ -255,7 +255,7 @@
 		$request = new stdClass();
 		$request->status = "failed";
 		
-		if ( empty( $_GET['email'] ) || empty( $_GET['pass'] ) ) {
+		if ( empty( $_GET['cpf'] ) || empty( $_GET['pass'] ) ) {
 
 			$request->message = "Erro: Parâmetros de requisição 'login' inválidos.";
 			$request = json_encode( $request );
@@ -264,10 +264,10 @@
 
 		} else {
 		
-			$email = strtolower( $_GET['email'] );
+			$cpf = strtolower( $_GET['cpf'] );
 			$pass = strtolower( $_GET['pass'] );
 			
-			$sql = "SELECT * FROM users WHERE email = '".$email."' AND password = '".$pass."'";
+			$sql = "SELECT * FROM users WHERE cpf = '".$cpf."' AND password = '".$pass."'";
 			
 			$result = $conn->query( $sql );
 			
@@ -324,10 +324,10 @@
 			} else {
 				
 				$request->status = "failed";
-				$request->message = "Erro: Email ou senha incorretos.";
+				$request->message = "Erro: cpf/cnpj ou senha incorretos.";
 				$request = json_encode( $request );
 				showResponse( $request );
-				saveLog( $conn, 0, "Login", "Erro ao fazer login, email ou senha incorretos." );
+				saveLog( $conn, 0, "Login", "Erro ao fazer login, cpf/cnpj ou senha incorretos." );
 				$conn->close();
 				
 			}			
