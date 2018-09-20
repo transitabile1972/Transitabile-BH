@@ -25,7 +25,7 @@
   <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-
+  
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -249,7 +249,7 @@
                   <label for="inputCPF" class="col-sm-2 control-label">CPF/CNPJ</label>
 
                   <div class="col-sm-10">
-                    <input name="cpf" type="number" class="form-control" id="inputCPF" placeholder="CPF/CNPJ" onkeydown="maskNI()" disabled>
+                    <input name="cpf" type="text" class="form-control" id="inputCPF" placeholder="CPF/CNPJ" disabled>
                   </div>
                 </div>                
 
@@ -289,6 +289,9 @@
 
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- jQuery Masked Input Plugin  -->
+<script src="jquery.maskedinput-master/dist/jquery.maskedinput.min.js"></script>
+<script type="text/javascript" src="jQuery-Mask-Plugin-master/dist/jquery.mask.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -297,7 +300,6 @@
   $.widget.bridge('uibutton', $.ui.button);
   
 	$(document).ready( function ( ) {
-	
 //		$("#balanceValue").html( "R$ " + window.localStorage.getItem( "balance" ) );
         if(1>0){
 //    if(window.localStorage.getItem( "balance" )!=0){
@@ -326,7 +328,14 @@
 		$('#inputEmail').val( window.localStorage.getItem( "email" ) );
 		$('#inputPassword').val( window.localStorage.getItem( "password" ) );
 		$('#inputPassword2').val( window.localStorage.getItem( "password" ) );
-		$('#inputCPF').val( window.localStorage.getItem( "cpf" ) );
+		var nationalId = $('#inputCPF').val( window.localStorage.getItem( "cpf" ) );
+    var natId = nationalId.toString();
+    if(natId.length > 11) {
+      $('#inputCPF').mask("999.999.999-99");
+    } else {
+      $('#inputCPF').mask("99.999.999/9999-99");
+    }
+    
 	
 		$("#profileForm").submit( function ( e ) {
 		
@@ -446,43 +455,8 @@
   }
   
 </script>
-  
 <script>
-  var nationalId = document.getElementById("inputCPF").value;
-      console.log(nationalId);
-  function fMasc(objeto,mascara) {
-				obj=objeto
-				masc=mascara
-				setTimeout("fMascEx()",1)
-			}
-			function fMascEx() {
-				obj.value=masc(obj.value)
-			}
-      function mCNPJ(cnpj){
-				cnpj=cnpj.replace(/\D/g,"")
-				cnpj=cnpj.replace(/^(\d{2})(\d)/,"$1.$2")
-				cnpj=cnpj.replace(/^(\d{2})\.(\d{3})(\d)/,"$1.$2.$3")
-				cnpj=cnpj.replace(/\.(\d{3})(\d)/,".$1/$2")
-				cnpj=cnpj.replace(/(\d{4})(\d)/,"$1-$2")
-				return cnpj
-			}
-			function mCPF(cpf){
-				cpf=cpf.replace(/\D/g,"")
-				cpf=cpf.replace(/(\d{3})(\d)/,"$1.$2")
-				cpf=cpf.replace(/(\d{3})(\d)/,"$1.$2")
-				cpf=cpf.replace(/(\d{3})(\d{1,2})$/,"$1-$2")
-				return cpf
-			}
-      
-  function maskNI() {
-    	var nationalId = document.getElementById("inputCPF").value;
-      console.log(nationalId);
-      if(nationalId.length > 11) {
-        fMasc( this, mCNPJ );
-      } else {
-        fMasc( this, mCPF );
-      }
-  }
+
 </script>
 
 <!-- Bootstrap 3.3.7 -->

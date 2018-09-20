@@ -53,8 +53,9 @@
         <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
       </div>
 
+      
       <div class="form-group has-feedback">
-        <input name="cpf" type="text" class="form-control" placeholder="CPF/CNPJ" id="cpf">
+        <input name="cpf" id="natId" type="text" class="form-control" placeholder="CPF/CNPJ" onkeydown="maskId()">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
 
@@ -104,6 +105,9 @@ contato@transitabile.com.br
 
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- jQuery Masked Input Plugin  -->
+<script src="jquery.maskedinput-master/dist/jquery.maskedinput.min.js"></script>
+<script type="text/javascript" src="jQuery-Mask-Plugin-master/dist/jquery.mask.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- iCheck -->
@@ -298,6 +302,19 @@ if (terms == "true") {
     return true;
     
 }
+</script>
+
+<script>
+ /* function maskId() {
+    var nationalId = document.getElementById('natId').value;
+    console.log(nationalId);
+    var natId = nationalId.toString();
+    if(natId.length > 11) {          
+      $('#natId').mask("99.999.999/9999-99");
+    } else {
+      $('#natId').mask("999.999.999-99");
+    }
+  } */
 </script>
 
 </body></html>
