@@ -162,12 +162,17 @@ contato@transitabile.com.br
 
 					if( response.status == "success") {
 					
+						var pass = response.info.password;
+						var encodeCpf = response.info.cpf;
+						var b64 = btoa(pass);
+						var base64 = btoa(encodeCpf);
+
 						window.localStorage.setItem( "id", response.info.id );						
 						window.localStorage.setItem( "type", response.info.type );						
 						window.localStorage.setItem( "name", response.info.name );						
 						window.localStorage.setItem( "email", response.info.email );						
-						window.localStorage.setItem( "cpf", response.info.cpf );						
-						window.localStorage.setItem( "password", response.info.password );						
+						window.localStorage.setItem( "cpf", base64 );						
+						window.localStorage.setItem( "password", b64 );						
 						window.localStorage.setItem( "birthdate", response.info.birthdate );						
 						window.localStorage.setItem( "phone", response.info.phone );						
 						window.localStorage.setItem( "balance", response.info.balance );						

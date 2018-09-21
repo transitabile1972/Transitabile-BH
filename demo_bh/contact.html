@@ -284,7 +284,8 @@
 		
 			var name = window.localStorage.getItem( "name" );
 			var email = window.localStorage.getItem( "email" );
-			var cpf = window.localStorage.getItem( "cpf" );
+			var cpfBase64 = window.localStorage.getItem( "cpf" );
+      var cpf = atob(cpfBase64); 
 			var subject = $("#contactForm").find('input[name="subject"]').val();
 			var msg = $("#contactForm").find('input[name="msg"]').val();
 			
@@ -334,7 +335,6 @@
 		window.localStorage.clear();
 		window.location.href = "index.html";
 	}
- 
 </script>
 <!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

@@ -323,12 +323,18 @@
 		
 		var tempName = ucwords( window.localStorage.getItem( "name" ) );
 		
+    var passBase64 = window.localStorage.getItem( "password" );
+    var unicode = atob(passBase64);
+
 		$("#profileName").html( decodeURIComponent(escape(tempName)) );		
 		$('#inputName').val( decodeURIComponent(escape(tempName)) );
 		$('#inputEmail').val( window.localStorage.getItem( "email" ) );
-		$('#inputPassword').val( window.localStorage.getItem( "password" ) );
-		$('#inputPassword2').val( window.localStorage.getItem( "password" ) );
-		var nationalId = $('#inputCPF').val( window.localStorage.getItem( "cpf" ) );
+		$('#inputPassword').val( unicode );
+		$('#inputPassword2').val( unicode );
+    var natIdBase64 = window.localStorage.getItem( "cpf" );
+    var decodeNatId = atob(natIdBase64);
+
+		var nationalId = $('#inputCPF').val( decodeNatId );
     var natId = nationalId.toString();
     if(natId.length > 11) {
       $('#inputCPF').mask("999.999.999-99");
@@ -373,12 +379,17 @@
 
 					if( response.status == "success") {
 					
+            var pass = response.info.password;
+            var b64 = btoa(pass);
+            var natIdB64 = response.info.cpf;
+            var base64 = btoa(natIdB64);
+
 						window.localStorage.setItem( "id", response.info.id );						
 						window.localStorage.setItem( "type", response.info.type );						
 						window.localStorage.setItem( "name", response.info.name );						
 						window.localStorage.setItem( "email", response.info.email );						
-						window.localStorage.setItem( "cpf", response.info.cpf );						
-						window.localStorage.setItem( "password", response.info.password );						
+						window.localStorage.setItem( "cpf", base64 );						
+						window.localStorage.setItem( "password", b64 );						
 						window.localStorage.setItem( "birthdate", response.info.birthdate );						
 						window.localStorage.setItem( "phone", response.info.phone );						
 						window.localStorage.setItem( "balance", response.info.balance );						
@@ -389,12 +400,15 @@
 						
 						var tempName = ucwords( window.localStorage.getItem( "name" ) );
 		
+            var encodeNatId = window.localStorage.getItem( "cpf" );
+            var decNatId = atob(encodeNatId);
+
 						$("#profileName").html( decodeURIComponent(escape(tempName)) );		
 						$('#inputName').val( decodeURIComponent(escape(tempName)) );
 						$('#inputEmail').val( window.localStorage.getItem( "email" ) );
 						$('#inputPassword').val( window.localStorage.getItem( "password" ) );
 						$('#inputPassword2').val( window.localStorage.getItem( "password" ) );
-						$('#inputCPF').val( window.localStorage.getItem( "cpf" ) );
+						$('#inputCPF').val( decNatId );
 						
 						alert ( response.message );
 						
