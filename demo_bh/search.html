@@ -119,14 +119,6 @@
         </li>
     
             <li>
-          <a href="search.html">
-            <i class="fa fa-search"></i> <span>Procurar Vaga</span>
-            
-          </a>
-          
-        </li>
-    
-            <li>
           <a href="vehicles.html">
             <i class="fa fa-car"></i> <span>Meus Veículos</span>
             
@@ -368,11 +360,11 @@ function codeLatLng( position ) {
       } else {
         
           var value = status;
-          $("#locationInfo").html( '<b>Sua localização atual é:</b><br><br><input type="text" name="locationInput" class="form-control" id="locationInput" placeholder="Localização" value="' + value + '" disabled/><br> <a href="vehicles.html"><button type="button" class="btn btn-primary" onclick="window.localStorage.setItem( "parklotSelected", JSON.stringify(locations[0]) );">Confirmar</button></a><br><br>' );
+          $("#locationInfo").html( '<b>Sua localização atual é:</b><br><br><input type="text" name="locationInput" class="form-control" id="locationInput" placeholder="Localização" value="' + value + '" disabled/><br> <a href="resume.html"><button type="button" class="btn btn-primary" onclick="window.localStorage.setItem( "parklotSelected", JSON.stringify(locations[0]) );">Confirmar</button></a><br><br>' );
         
       }
         var value = end;
-        $("#locationInfo").html( '<b>Sua localização atual é:</b><br><br><input type="text" name="locationInput" class="form-control" id="locationInput" placeholder="Localização" value="' + value + '" disabled/> <br><a href="vehicles.html"><button type="button" onclick="window.localStorage.setItem( "parklotSelected", JSON.stringify(locations[0]) );" class="btn btn-primary" >Confirmar</button></a><br><br>' );        
+        $("#locationInfo").html( '<b>Sua localização atual é:</b><br><br><input type="text" name="locationInput" class="form-control" id="locationInput" placeholder="Localização" value="' + value + '" disabled/> <br><a href="resume.html"><button type="button" onclick="window.localStorage.setItem( "parklotSelected", JSON.stringify(locations[0]) );" class="btn btn-primary" >Confirmar</button></a><br><br>' );        
        
         myMap();	  
     });    

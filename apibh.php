@@ -4,8 +4,8 @@
 	
 	// Allow Cross Origin:
 	header("Access-Control-Allow-Origin: *");
-	header("access-control-allow-origin: https://pagseguro.uol.com.br");
-	header("access-control-allow-origin: https://sandbox.pagseguro.uol.com.br");
+	// header("access-control-allow-origin: https://pagseguro.uol.com.br");
+	// header("access-control-allow-origin: https://sandbox.pagseguro.uol.com.br");
 	
 	// UTF8:
 	header("Content-type: text/html; charset=utf-8");
@@ -163,30 +163,37 @@
 					break;
 					
 				case "addvehicle":
+				// LA
 					addVehicle( $conn );
 					break;
 					
 				case "updateuserinfo":
+				// LA
 					updateUserInfo( $conn );
 					break;
 					
 				case "getvehicles":
+				// LA
 					getVehicles( $conn );
 					break;
 					
 				case "getvehiclesfull":
+				// LA
 					getVehiclesFull( $conn );
 					break;
 					
 				case "updatevehicle":
+				// LA
 					updateVehicle( $conn );
 					break;
 					
 				case "deletevehicle":
+				// LA
 					deleteVehicle( $conn );
 					break;
 					
 				case "report":
+
 					report( $conn );
 					break;
 					
@@ -199,6 +206,7 @@
 					break;
 
 				case "autorizacao":
+				// LA
 					getAutorizacao();
 					break;
 					
@@ -206,7 +214,12 @@
 					getUserLogs( $conn );
 					break;
 
+				case "getAddlogs":
+					getUserAddLogs( $conn );
+					break;
+				
 				case "gettic":
+				// LA
 					getTic($conn);
 					break;
 
@@ -227,6 +240,7 @@
 					break;
 				
 				case "getBalance":
+				// LA
 					getBalance($conn);
 					break;
 				
@@ -239,6 +253,7 @@
 					break;
 
 				case "setVehicleStatus":
+				// LA
 					setVehicleStatus($conn);
 					break;
 				
@@ -1591,6 +1606,55 @@
 		}
 		
 	}
+
+	function getUserAddLogs( $conn ) {
+
+		// Request example: http://transitabile.com.br/api.php?userid=1&type=getlogs
+			
+		if ( empty($_GET['userid']) ) {
+
+			$request->message = "Erro: Parâmetros de requisição 'getuserAddlogs' inválidos.";
+			$request = json_encode( $request );
+			showResponse( $request );
+			$conn->close();
+
+		} else {
+			
+			$userID = strtolower( $_GET['userid'] );	
+
+			$sql = "SELECT * FROM logs WHERE user_id ='".$userID."' 
+			and type = 'Compra'
+			or type = 'Pendente'
+			or type = 'Cancelado'
+			or type = 'Estacionamento'
+			or type = 'Negado' ORDER BY modified DESC";
+			$result = $conn->query($sql);
+
+			$results = $result->num_rows;
+		
+			$request = new stdClass();
+			$request->status = "success";
+			$request->results = $results;
+			$request->message = $results." logs encontrados.";
+
+			$list = array();
+		
+			while( $row = $result->fetch_assoc() ) {
+	
+				$list[] = array('id' => $row["id"], 'type' => $row["type"], 'description' => $row["description"], 'created' => $row["created"]);
+	
+			}
+
+			$request->list = $list;
+	
+			$request = json_encode( $request );
+			showResponse( $request );
+			$conn->close();
+			
+		}
+		
+	}
+	
 	
 	function setSale( $userid, $type, $value, $created, $modified, $userid ) {	
 	}

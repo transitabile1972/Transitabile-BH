@@ -104,14 +104,7 @@
           
         </li>
     
-            <li>
-          <a href="search.html">
-            <i class="fa fa-search"></i> <span>Procurar Vaga</span>
             
-          </a>
-          
-        </li>
-    
             <li>
           <a href="vehicles.html">
             <i class="fa fa-car"></i> <span>Meus Veículos</span>
@@ -208,6 +201,8 @@
 
       </section>
     <!-- /.content -->
+    
+
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer" style="font-size:13px">
@@ -243,12 +238,6 @@
 </script>
 
 <script>
-$(document).ready(function(){
-    $('[data-toggle="popover"]').popover();   
-});
-</script>
-
-<script>
   $.widget.bridge('uibutton', $.ui.button);
   
     function logout() {
@@ -258,13 +247,13 @@ $(document).ready(function(){
 </script>
 
 
-<!-- GET USER LOGS -->
+<!-- GET USER LOGS ADD -->
 
   <script>
 
     $(document).ready(function () {
 
-      var requestURL = 'https://transitabile.com.br/api.php?userid=' + window.localStorage.getItem("id") + '&type=getlogs';
+      var requestURL = 'https://transitabile.com.br/apibh.php?userid=' + window.localStorage.getItem("id") + '&type=getAddlogs';
 
       $.ajax({
         url: requestURL
@@ -272,7 +261,6 @@ $(document).ready(function(){
         , success: function (data) {
 
           var response = $.parseJSON(data);
-
           if(response.results <= 0) {
 
             var alertCode = '<div style="margin: 16px;"class="alert alert-warning alert-dismissible"><h4><i class="icon fa fa-info"></i> Registros</h4>' + response.message + '</div>';
@@ -282,14 +270,22 @@ $(document).ready(function(){
 
           } else {
 
-            var alertCode = '<div style="margin: 16px;"class="alert alert-info alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-info"></i> Registros</h4>' + response.message + '</div>';
+            var alertCode = '<div style="margin: 16px;"class="alert alert-info alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-info"></i> Registros de Transações</h4>' + response.message + '</div>';
             $('.content').html( alertCode + $('.content').html());
             var listCode = "<tr><th>Data</th><th>Situação</th><th>Log</th></tr>";
             for (var i = 0; i < response.list.length; i++) {
-              listCode += '<tr><td>' + response.list[i].id + '</td><td>' + response.list[i].created + '</td><td>' + getFormattedLogType( response.list[i].type ) + '</td><td><button id="btn_log" type="button" class="btn btn-success btn-xs btn-log-style" data-toggle="popover" data-placement="top" data-content="+ response.list[i].description +">Detalhes</button></td><td><button id="btnCancel" type="button" class="btn btn-danger btn-xs btn-cancel-style" onclick="btnCancel()">Cancelar</button></td></tr>';
-            }
+              listCode += '<tr><td colspan="2">' + response.list[i].created + '</td></tr><tr><td>' + getFormattedLogType( response.list[i].type ) + '</td><td><button id="btn_log" type="button" class="btn btn-primary btn-xs btn-log-style" data-toggle="popover" data-placement="top" data-content='+ response.list[i].description +'>Detalhes</button></td><td>' + getButtonLogType( response.list[i].type ) +'</td></tr>';
+            
+            var cod_trans = response.list[i].id;
+            console.log(cod_trans);
+            }           
+
 
             $('#logsList').html(listCode);
+
+            $(document).ready(function(){
+            $('[data-toggle="popover"]').popover();   
+            });
 
           }
 
@@ -316,6 +312,22 @@ $(document).ready(function(){
         return "<span class='label label-warning'>Pagamento</span>";
       }
 
+      if(type == "Pendente") {
+        return "<span class='label label-warning'>Pendente</span>";
+      }
+
+      if(type == "Compra") {
+        return "<span class='label label-success'>Aprovada</span>";
+      }
+
+      if(type == "Cancelado") {
+        return "<span class='label label-primary'>Cancelada</span>";
+      }
+
+      if(type == "Negado") {
+        return "<span class='label label-danger'>Negada</span>";
+      }
+
       if(type == "Contact") {
         return "<span class='label label-success'>Contato</span>";
       }
@@ -340,8 +352,19 @@ $(document).ready(function(){
 
     }
 
+    function getButtonLogType( type ) {
+      
+      if(type == "Compra") {
+        return "<button id='btnCancel' type='button' class='btn btn-danger btn-xs btn-cancel-style' onclick='btnCancel()'>Cancelar</button>";
+      }      
+
+      return "<span class='label label-primary'></span>";
+
+    }
+
   </script>
 
+ 
   <!-- END GET USER LOGS -->
 <!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

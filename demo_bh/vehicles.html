@@ -103,14 +103,6 @@
         </li>
     
             <li>
-          <a href="search.html">
-            <i class="fa fa-search"></i> <span>Procurar Vaga</span>
-            
-          </a>
-          
-        </li>
-    
-            <li>
           <a href="vehicles.html">
             <i class="fa fa-car"></i> <span>Meus Veículos</span>
             
@@ -196,7 +188,8 @@
                               <thead>
                                   <tr role="row">
                                       <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="" style="width: 521px;">Placa</th>
-                                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="" style="width: 480px;">Modelo</th></tr>
+                                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="" style="width: 480px;">Modelo</th>
+                                      <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="" style="width: 600px;">Ações</th></tr>
                               </thead>
                               <tbody id="vehiclesList">
                                   <tr role="row" class="even">
@@ -207,6 +200,7 @@
                                     <tr>
                                         <th rowspan="1" colspan="1">Placa</th>
                                         <th rowspan="1" colspan="1">Modelo</th>
+                                        <th rowspan="1" colspan="1">Ações</th>
                                     </tr>
                                 </tfoot>
                           </table>
@@ -330,7 +324,7 @@
 						
 						for( var i = 0; i < response.list.length; i ++) {
 						
-							var vLink = "javascript:setSelectedVehicle('" + response.list[ i ].id + "','" + response.list[ i ].plate+ "','" + response.list[ i ].model + "', 'resume');";
+							var vLink = "javascript:setSelectedVehicle('" + response.list[ i ].id + "','" + response.list[ i ].plate+ "','" + response.list[ i ].model + "', '');";
                             
 							var vButtonLink = "setSelectedVehicle('" + response.list[ i ].id + "','" + response.list[ i ].plate + "','" + response.list[ i ].model + "', 'editCar')";
                             
@@ -338,7 +332,7 @@
 							
 							console.log(vLink);
 						
-							var newVehicle = '<tr role="row" class="even"><td><a href="' + vLink + '">' + response.list[ i ].plate.toUpperCase() + '</a></td><td>' + ucwords( response.list[ i ].model ) + '</td></tr>';
+							var newVehicle = '<tr role="row" class="even"><td>' + response.list[ i ].plate.toUpperCase() + '</td><td>' + ucwords( response.list[ i ].model.toUpperCase() ) + '</td><td><div class="btn-group"><button type="button" onclick="' +vButtonLink+ '" class="btn btn-default btn-flat"><i class="fa fa-edit"></i></button><button type="button" onclick="' + vDeleteLink + '" class="btn btn-default btn-flat"><i class="fa fa-close"></i></button></div></td></tr>';
 						
 							listContent = listContent + newVehicle;					
 						

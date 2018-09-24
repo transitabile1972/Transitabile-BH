@@ -102,16 +102,8 @@
             
           </a>
           
-        </li>
-    
-            <li>
-          <a href="search.html">
-            <i class="fa fa-search"></i> <span>Procurar Vaga</span>
-            
-          </a>
-          
-        </li>
-    
+        </li>   
+                
             <li>
           <a href="vehicles.html">
             <i class="fa fa-car"></i> <span>Meus Veículos</span>
@@ -206,22 +198,10 @@
           <label for="cod">Código:</label>
           <input name="cod" type="text" class="form-control" id="modelInput" placeholder="Código da transação">
         </div>
-
-				<div class="form-group">
-				<label for="type">Tipo de cancelamento:</label>
-				<br><br>
-				<select name="type" class="form-control" id="type">
-          <option value="">--- Selecione um tipo de cancelamento ---</option>
-				  <option value="1">Motivo 1</option>
-				  <option value="2">Motivo 2</option>
-				  <option value="3">Motivo 3</option>
-				  <option value="4">Motivo 4</option>
-				</select>
-				</div>
-				
+						
 				<div class="form-group">
                   <label for="reason">Informe o motivo:</label>
-                  <textarea name="reason" class="form-control" id="modelInput" placeholder="Motivo do cancelamento" rows="10" cols="30"></textarea>
+                  <textarea name="desc_reason" class="form-control" id="modelInput" placeholder="Motivo do cancelamento" rows="10" cols="30"></textarea>
                 </div>
                 
                 
@@ -289,14 +269,14 @@
 		
 			var cod = $("#cancelForm").find('input[name="cod"]').val();
 			var type = $("#cancelForm").find('input[name="type"]').val();
-			var reason = $("#cancelForm").find('input[name="reason"]').val();
+			var desc_reason = $("#cancelForm").find('input[name="desc_reason"]').val();
 			
-			if ( !cod || !type || !reason ) {
+			if ( !cod || !type || !desc_reason ) {
 				alert( "Todos os campos devem ser preenchidos.");
 				return false;
 			}
 			
-			var requestURL = 'https://transitabile.com.br/apibh.php?userid=' + userID + '&cod=' + cod + '&type=' + type + '&reason=' + reason;
+			var requestURL = 'https://transitabile.com.br/apibh.php?userid=' + userID + '&cod=' + cod + '&desc_reason=' + desc_reason;
 			
 			$.ajax({
 			
@@ -318,7 +298,7 @@
 						
 						$("#cancelForm").find('input[name="cod"]').val("");
 						$("#cancelForm").find('input[name="type"]').val("");
-            $("#cancelForm").find('input[name="reason"]').val("");
+            $("#cancelForm").find('input[name="desc_reason"]').val("");
 						
             window.location.href = "history.html";
 						
