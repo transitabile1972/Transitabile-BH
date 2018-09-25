@@ -631,7 +631,7 @@
 //        var creditos = window.localStorage.getItem( "balance" );
                 
 //        valor em reais
-        var creditos = 10;
+        var creditos = window.localStorage.getItem( "balance" );
 //           valor em RDs, varia conforme regiao
         var calcRd = Math.floor((creditos / 4.4));
         window.localStorage.setItem("creditoRD", calcRd);
@@ -646,7 +646,7 @@
 //		$("#balanceValue").html( "R$ " + window.localStorage.getItem( "balance" ) );
         creditRD>1?$("#balanceValue").html( creditRD + " - RDs" ):$("#balanceValue").html( creditRD + " - RD" );
 		
-		
+		console.log(creditRD);
 	}
 	
 	  function logout() {

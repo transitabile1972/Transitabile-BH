@@ -163,231 +163,415 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>Estacionar<small>Resumo
-      </small>
-    </h1>
+</small>
+      </h1>
+      
+    </section>
 
-  </section>
+    <!-- Main content -->
+    <section class="content">
 
-  <!-- Main content -->
-  <section class="content">
+      <!-- Default box -->
+      
 
-    <!-- Default box -->
+<div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Estacionando</h3>
 
-
-    <div class="box">
-
-      <!-- /.box-body -->
-
-      <!-- /.box-footer-->
-      <!-- </div> -->
-
-      <div class="box">
-
-        <div class="box-body" id=""><br><br>
-          <!-- <div class="box-body" id="location">Localização Atual: Definindo...<br><br> -->
-           <div class="box-header with-border">
-            <h3 class="box-title">Estacionando</h3>
-
-            <div class="box-tools pull-right">
-
-
-
-            </div>
+          <div class="box-tools pull-right">
+            
+            
           </div>
-          <div class="box-body">
-            <b>Detalhes da vaga:</b> 
-            <div id="vehicleInfo"></div>
-          </div>
-          <div class="box-body" id="vehicleInfo"><div id="rua_bairro">Carregando...</div><br><br>
         </div>
-        <a href="search.html"></a>
-        <div class="col-md-4">
-          <a href="search.html"><button type="button" class="btn btn-block btn-primary">Atualizar/Procurar Vaga</button></a>
+        
+        <div class="box-body">
+    <div id="vehicleInfo"></div><br>
+    </div>
+        <!-- /.box-body -->
+        
+        <!-- /.box-footer-->
+      </div>
+<div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Valor</h3>
 
-                   <div class="form-group">
+          <div class="box-tools pull-right">
+            
+            
+          </div>
+        </div>
+        <div class="box-body" >
+            
+            <form id="ticketStartForm">
+            
+            <div id="ticketInfo"><br><b>
+                Saldo atual: Carregando...</b><br>
+                Valor: Carregando...<br><br>
+            </div>
+            <div class="form-group">
                 <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Tempo de permanência:</font></font></label>
                 <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" id="numeroHoras" name="numeroHoras" onchange="javascript:instaciarPermanencia(this)">
 <!--                  <option selected="selected">01<font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> - hora</font></font></option>-->
                   <option value="01">01<font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> - hora</font></font></option>
                   <option value="02">02<font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> - horas</font></font></option>
+                  <option value="03">03<font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> - horas</font></font></option>
+                  <option value="04">04<font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> - horas</font></font></option>
                   <option value="05">05<font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> - horas</font></font></option>
+                  <option value="06">06<font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> - horas</font></font></option>
+                  <option value="07">07<font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> - horas</font></font></option>
+                  <option value="08">08<font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> - horas</font></font></option>
+                  <option value="09">09<font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> - horas</font></font></option>
+                  <option value="10">10<font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> - horas</font></font></option>
+                  <option value="11">11<font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> - horas</font></font></option>
                   <option value="12">12<font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> - horas</font></font></option>
                 </select>                
               </div>
-        </div>
-
-      </div>
-
-
-
-
-
-      <!-- /.box-body -->
-      <!--        <div class="box-footer">* Valores aproximados de localização e quantidade de vagas</div>-->
-      <!-- /.box-footer-->
-    </div>
-    <div class="box">
-      <div class="box-header with-border">
-        <h3 class="box-title">Valor</h3>
-
-        <div class="box-tools pull-right">
-
-
-        </div>
-      </div>
-      <div class="box-body" >
-        <div id="ticketInfo"><br><b>
-          Saldo atual: <h4 id="balanceValue">0 - RDs</h4></b><br>
-
-          <div>Selecione o tempo de permanência na vaga: 
-            <select id="opcaoDePermanencia">
-              <option value="01">01 hora</option>
-              <option value="02">02 horas</option>
-              <option value="05">05 horas</option>
-              <option value="12">12 horas</option>
-            </select>
-          </div>
-          <!--                Valor: Carregando...<br><br>-->
-        </div>
-        <a href="search.html"></a>
-        <div class="col-md-3 container">
-          <button type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#myModal" onclick="enviaTempo()">Estacionar</button>
-        </div> 
-
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog">
-          <div class="modal-dialog modal-sm">
-            <div class="modal-content" style="background-color: #4682B4">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title" style="color: white"><strong>Confirme</strong></h4>
-              </div>
-              <div class="modal-body">
-
-                <p style="color: white">Você realmente deseja estacionar no local?<br>Será debitado :</p>
-                <h3 id="imprimeRds"  style="color: white"></h3>
-                <p style="color: white">dos seus créditos.</p>
-
-              </div>
-              <div class="modal-footer" style="padding-right: 32%">
-                <button id="sim" type="button" class="btn btn-primary" data-dismiss="modal" onclick="showPaymentError()">Sim</button>
-                <button id="nao" type="button" class="btn btn-primary" data-dismiss="modal">Não</button>
-              </div>
+            <a href="search.html"></a>
+<!--            <div class="col-md-3" id="divBotaoEstacionar"><a href="javascript:showPayment()"><button id="botaoEstacionar" name="botaoEstacionar" type="button" class="btn btn-block btn-success" disabled= "disabled">Estacionar</button></a>-->
+            <div class="col-md-3" id="divBotaoEstacionar"><button id="botaoEstacionar" name="botaoEstacionar" type="submit" class="btn btn-block btn-success">Estacionar</button>
             </div>
-          </div>
-        </div> 
-        <!-- Modal -->
+          </form>
+        </div>
+        <!-- /.box-body -->
+        
+        <!-- /.box-footer-->
       </div>
-      <!-- /.box-body -->
+      <!-- /.box -->
 
-      <!-- /.box-footer-->
-    </div>
-    <!-- /.box -->
-
-  </section>
-  <!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
-<footer class="main-footer" style="font-size:13px">
-  <div class="pull-right hidden-xs">
-    <b>Versão</b> 3.1.0
+    </section>
+    <!-- /.content -->
   </div>
-  <div><img src="dist/img/rotativo.jpg" alt="Logo Rotativo Digital" width="150px"></div>  
+  <!-- /.content-wrapper -->
+  <footer class="main-footer" style="font-size:13px">
+    <div class="pull-right hidden-xs">
+      <b>Versão</b> 3.1.0
+    </div>
+  PREFEITURA MUNICIPAL DE BRAGANÇA PAULISTA<br>
+  Secretaria Municipal de Mobilidade Urbana<br>
+  http://www.braganca.sp.gov.br<br>
+  <br><br>
   Transitabile Sistema de Controle de Vagas Automotivas Ltda<br>
   CNPJ: 28.729.743/0001-16<br>
   www.transitabile.com.br<br>
   contato@transitabile.com.br
-</footer>
+  </footer>
 
-<!-- Control Sidebar -->
-
-<!-- /.control-sidebar -->
+  <!-- Control Sidebar -->
+  
+  <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
-   immediately after the control sidebar -->
-   <div class="control-sidebar-bg"></div>
- </div>
- <!-- ./wrapper -->
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
 
- <!-- jQuery 3 -->
- <script src="bower_components/jquery/dist/jquery.min.js"></script>
- <!-- jQuery UI 1.11.4 -->
- <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
- <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
- <script>
- </script>
- <script>
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
   $.widget.bridge('uibutton', $.ui.button);
-  var id,plate,model,ruaAtual,areaAtual,endereco;
+    var id,plate,model;
+    
+    /** DADOS PARA A SEÇÃO --> 
+    valorDaVaga - valor/hora
+    tempoPermanencia - selecao feita pelo usuario
+    totalVaga - valor total a ser debitado do saldo (valorDaVaga * tempoPermanencia)
+    **/
+    var saldoAtual, valorDaVaga, tempoPermanencia, totalVaga, localizacaoVaga;
+    
+    /** PARA ATUALIZAÇÃO DE HORA VIA JS -->
+    
+    **/
+    var dataAtualizada, horarioAtualizado, segundoAtualizado, minutoAtualizado, horaAtualizada, diaAtualizado, mesAtualizado, anoAtualizado;
+
+    
+    
+    
+    /*** Atualizar horario via JS
+    :Parametro:
+        1 -> sem ação no localStorage
+        2 -> salva no localStorage
+    ***/
+    function atualizarRelogio(_o){
+        var data = new Date();
+        var dia     = data.getDate();           // 1-31
+        var dia_sem = 1 + data.getDay();            // 0-6 (zero=domingo)
+        var mes     = 1 + data.getMonth();          // 0-11 (zero=janeiro)
+        var ano2    = data.getYear();           // 2 dígitos
+        var ano4    = data.getFullYear();       // 4 dígitos
+        var hora    = data.getHours();          // 0-23
+        var min     = data.getMinutes();        // 0-59
+        var seg     = data.getSeconds();        // 0-59
+        segundoAtualizado = seg;
+        minutoAtualizado = min;
+        horaAtualizada = hora;
+        diaAtualizado = dia;
+        mesAtualizado = mes;
+        anoAtualizado = ano4;
+        dataAtualizada = diaAtualizado + " - " + mesAtualizado + " - " + anoAtualizado;
+        horarioAtualizado = horaAtualizada + ":" + minutoAtualizado + ":" + segundoAtualizado;
+//        console.log(dataAtualizada + " | " + horarioAtualizado);
+        if(_o === 2){
+            window.localStorage.setItem("dataAtualizada", dataAtualizada);
+            window.localStorage.setItem("horarioAtualizado", horarioAtualizado);
+            window.localStorage.setItem("segundoAtualizado", segundoAtualizado);
+            window.localStorage.setItem("minutoAtualizado", minutoAtualizado);
+            window.localStorage.setItem("horaAtualizada", horaAtualizada);
+            window.localStorage.setItem("diaAtualizado", diaAtualizado);
+            window.localStorage.setItem("mesAtualizado", mesAtualizado);
+            window.localStorage.setItem("anoAtualizado", anoAtualizado);
+            
+        }else{}
+    }
+//    atualizarRelogio();
+    
+        $("#ticketStartForm").submit( function ( e ) {
+    
+      var id = window.localStorage.getItem( "id" );
+
+      if( id == null ) {
+      
+        window.location.href = "index.html";
+      
+      } else {
+      
+        var type = window.localStorage.getItem( "type" );
+        
+        if( type == null ) {
+        
+          window.location.href = "index.html";    
+        
+        } else {
+        
+          if( type == "fiscal" ) {
+          
+            window.location.href = "dashFical.html";
+          
+          } else {
+          
+            var userid = id;
+                        
+                        tempoPermanencia
+                        
+            
+            if( !userid ) {
+              alert( "ID de usuário inválido, tente novamente mais tarde. ");
+              window.location.href = "index.html";
+            }
+            
+            if ( !plate || !model ) {
+              alert( "Todos os campos devem ser preenchidos. ");
+              return false;
+            }
+//            saldoAtual, valorDaVaga, tempoPermanencia, totalVaga, localizacaoVaga
+            var requestURL_ticket = 'https://transitabile.com.br/t_bp/api/apibh.php?userid=' + userid + '&type=start_ticket&vehicleid='+vehicle_id+'&value=' + valorDaVaga + '&total_value=' + totalVaga + '&tempopermanencia=' + tempoPermanencia;
+            
+            $.ajax({
+            
+              url: requestURL_ticket,
+              type: 'GET',
+              success: function ( data ) {
+               
+                var response = $.parseJSON( data );
+                
+                if( response.status == "failed") {
+                
+                  alert ( response.message );
+                  
+                }   
+
+                if( response.status == "success") {
+                
+                  alert ( response.message );
+                  window.location.href = "resume.html";
+                  
+                }         
+              }         
+               
+            });
+            
+          }
+          
+        }
+        
+      }
+      
+      return false;     
+
+    });
+    
+    function instaciarPermanencia(_e){
+//        tempoPermanencia = $("#numeroHoras").find('option[value="value"]').val();
+        tempoPermanencia = _e.value;
+        
+        totalVaga = valorDaVaga * tempoPermanencia;
+        
+        window.localStorage.setItem("totalVaga", totalVaga);
+//        alert(tempoPermanencia);
+        tempoPermanencia>1?$("#ticketInfo").html( "<br><b>Saldo atual: </b><br>R$ " + saldoAtual + "<br><br><b>Valor da vaga: </b><br>R$ " + valorDaVaga + "<br><br><b>Valor total por " + tempoPermanencia + " horas: </b><br>R$ " + totalVaga + "<br><br>"):$("#ticketInfo").html( "<br><b>Saldo atual: </b><br>R$ " + saldoAtual + "<br><br><b>Valor da vaga: </b><br>R$ " + valorDaVaga + "<br><br><b>Valor total por " + tempoPermanencia + " hora: </b><br>R$ " + totalVaga + "<br><br>");
+//        saldoAtual>=totalVaga?document.getElementById("botaoEstacionar").disabled=false:document.getElementById().disabled=true;
+        
+        saldoAtual>=totalVaga?$("#divBotaoEstacionar").html( "<a href='javascript:showPayment()'><button id='botaoEstacionar' name='botaoEstacionar' type='button' class='btn btn-block btn-success' >Estacionar</button></a>"):$("#divBotaoEstacionar").html( "<a href='javascript:showPaymentError()'><button id='botaoEstacionar' name='botaoEstacionar' type='button' class='btn btn-block btn-success' >Estacionar</button></a>");
+        
+    }
   
   $(document).ready( function ( ) {
-    ruaAtual = window.localStorage.getItem( "_ruaAtual" ); 
-    areaAtual = window.localStorage.getItem( "_areaAtual" ); 
-    endereco = ruaAtual + " - " + areaAtual;
-    $("#rua_bairro").html( endereco );
-    if(1>0){
-//    if(window.localStorage.getItem( "balance" )!=0){
-//        var creditos = window.localStorage.getItem( "balance" );
-//        valor em reais
-var creditos = 10;
-//           valor em RDs, varia conforme regiao
-var calcRd = Math.floor((creditos / 4.4));
-window.localStorage.setItem("creditoRD", calcRd);
-var creditRD = calcRd;
-}else{
-}
-var bal = window.localStorage.getItem( "balance" ); 
-var cRD = window.localStorage.getItem( "creditoRD" ); 
-//		$("#balanceValue").html( "R$ " + window.localStorage.getItem( "balance" ) + " | " + window.localStorage.getItem( "creditoRD" ) + " RD" );		
-//		$("#balanceValue").html( "R$ " + window.localStorage.getItem( "balance" ) );
-creditRD>1?$("#balanceValue").html( creditRD + " - RDs" ):$("#balanceValue").html( creditRD + " - RD" );
-id = window.localStorage.getItem( "selectedVId" );
-plate = window.localStorage.getItem( "selectedVPlate" );
-model = window.localStorage.getItem( "selectedVModel" );
-if(!id) {
- $("#vehicleInfo").html( "Selecione um veículo.");
-} else {
- $("#vehicleInfo").html( plate.toUpperCase() + "<br>" + ucwords(model));
-}
-getLocation();
-var pl = JSON.parse( window.localStorage.getItem( "parklotSelected" ) );
-$("#parklotDesc").html( "<b>Detalhes da vaga:</b><br><br>" + pl.loc + "<br><br>Permanência: " + pl.p + "<br>" + pl.amout + " vagas livres<br><br>" );	
-$("#ticketInfo").html( "<br><b>Saldo atual: R$ " + window.localStorage.getItem( "balance" ) + "</b><br>Valor da vaga: " + pl.value + "<br><br>" );	
+        
+        
+        
+        /********
+        PARA DEMO
+        *********/
+        
+        window.localStorage.setItem("valorDaVaga", 2);
+        tempoPermanencia = 1;
+        window.localStorage.setItem("totalVaga", 0);
+        
+        atualizarRelogio(1);
+        
+        
+        
+//        ****************************
+        
+        
+        
+        
+  
+    id = window.localStorage.getItem( "selectedVId" );
+    plate = window.localStorage.getItem( "selectedVPlate" );
+    model = window.localStorage.getItem( "selectedVModel" );
+        
+        saldoAtual = window.localStorage.getItem( "balance" );
+        valorDaVaga = window.localStorage.getItem( "valorDaVaga" );
+//        tempoPermanencia = window.localStorage.getItem( "tempoPermanencia" );
+//        totalVaga = window.localStorage.getItem( "totalVaga" );
+        var _rua = window.localStorage.getItem( "ruaAtual" );
+        var _bairro = window.localStorage.getItem( "areaAtual" );
+        localizacaoVaga = " " + _rua + " - " + _bairro;
+        totalVaga = valorDaVaga * tempoPermanencia;
+        window.localStorage.setItem("totalVaga", totalVaga);
+        
+//        console.log(localizacaoVaga);
+        
+        
+        
+        
+    
+    if(!id) {
+      $("#vehicleInfo").html( "Selecione um veículo.");
+    } else {
+//      $("#vehicleInfo").html( plate.toUpperCase() + " - " + ucwords(model).toUpperCase() + "<br><br>" + localizacaoVaga);
+      $("#vehicleInfo").html( plate.toUpperCase() + " - " + ucwords(model).toUpperCase() + "<br>Em: " + localizacaoVaga + "<br>Dia: " + dataAtualizada + ", às: " + horarioAtualizado + ".");
+    }
+    
+    getLocation();
+    
+    var pl = JSON.parse( window.localStorage.getItem( "parklotSelected" ) );
+    
+//    $("#parklotDesc").html( "<b>Detalhes da vaga:</b><br><br>" + pl.loc + "<br><br>Permanência: " + pl.p + "<br>" + pl.amout + " vagas livres<br><br>" ); 
+    $("#parklotDesc").html( "<b>Detalhes da vaga:</b><br><br>" + localizacaoVaga + "<br><br><b>Permitido estacionar:</b><br><br>de 1 a 12 horas."); 
+    
+//    $("#ticketInfo").html( "<br><b>Saldo atual: R$ " + window.localStorage.getItem( "balance" ) + "</b><br>Valor da vaga: " + pl.value + "<br><br>" );  
+    tempoPermanencia>1?$("#ticketInfo").html( "<br><b>Saldo atual: </b><br>R$ " + saldoAtual + "<br><br><b>Valor da vaga: </b><br>R$ " + valorDaVaga + "<br><br><b>Valor total por " + tempoPermanencia + " horas: </b><br>R$ " + totalVaga + "<br><br>"):$("#ticketInfo").html( "<br><b>Saldo atual: </b><br>R$ " + saldoAtual + "<br><br><b>Valor da vaga: </b><br>R$ " + valorDaVaga + "<br><br><b>Valor total por " + tempoPermanencia + " hora: </b><br>R$ " + totalVaga + "<br><br>");
+        
+        saldoAtual>=totalVaga?$("#divBotaoEstacionar").html( "<a href='javascript:showPayment()'><button id='botaoEstacionar' name='botaoEstacionar' type='button' class='btn btn-block btn-success' >Estacionar</button></a>"):$("#divBotaoEstacionar").html( "<a href='javascript:showPaymentError()'><button id='botaoEstacionar' name='botaoEstacionar' type='button' class='btn btn-block btn-success' >Estacionar</button></a>");
+        
+        
 //        $("#balanceValue").html( "R$ " + window.localStorage.getItem( "balance" ) );
-});
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+  
+  });
+  
   function ucwords (str) {
     return (str + '').replace(/^([a-z])|\s+([a-z])/g, function ($1) {
-     return $1.toUpperCase();
-   });
+      return $1.toUpperCase();
+    });
   }
+  
   function getLocation() {
     if (navigator.geolocation) {
-     navigator.geolocation.getCurrentPosition(showPosition);
-   } else {
-     $("#location").html('Geolocalização não é suportada neste dispositivo.<br><br><a href="search.html"></a><div class="col-md-3"><a href="search.html"><button type="button" class="btn btn-block btn-primary">Atualizar/Procurar Vaga</button></a></div>');
-   }
- }
- function showPosition(position) {
-  $("#location").html('Localização Atual: Latitude: ' + position.coords.latitude + ' Longitude: ' + position.coords.longitude + '<br><br><a href="search.html"></a><div class="col-md-3"><a href="search.html"><button type="button" class="btn btn-block btn-primary">Atualizar/Procurar Vaga</button></a></div>'); 
-  console.log('Latitude: ' + position.coords.latitude + ' Longitude: ' + position.coords.longitude);
-}
-function showPaymentError() {
-  if(window.localStorage.getItem( "id" ) == 44){
-   window.localStorage.setItem( "balance", 150,00+parseFloat(window.localStorage.getItem( "balance") )) ;
- }
- else{
-  alert("Função desabilitada no momento, tente novamente mais tarde.");
-}
-}
-function enviaTempo(){
-  var quantidadeRDs = document.getElementById("opcaoDePermanencia").selectedIndex;
-//        alert(document.getElementsByTagName("option")[quantidadeRDs].value);
-this.rdsPermanencia = document.getElementsByTagName("option")[quantidadeRDs].value;
-$("#imprimeRds").html('<span>' + document.getElementsByTagName("option")[quantidadeRDs].value + ' RDs');
-}
-function logout() {
-	window.localStorage.clear();
-	window.location.href = "index.html";
-}
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      $("#location").html('Geolocalização não é suportada neste dispositivo.<br><br><a href="search.html"></a><div class="col-md-3"><a href="search.html"><button type="button" class="btn btn-block btn-primary">Atualizar/Procurar Vaga</button></a></div>');
+    }
+  }
+  
+  function showPosition(position) {
+    $("#location").html('Localização Atual: Latitude: ' + position.coords.latitude + ' Longitude: ' + position.coords.longitude + '<br><br><a href="search.html"></a><div class="col-md-3"><a href="search.html"><button type="button" class="btn btn-block btn-primary">Atualizar/Procurar Vaga</button></a></div>'); 
+//        console.log('Latitude: ' + position.coords.latitude + ' Longitude: ' + position.coords.longitude);
+  }
+  
+  function showPaymentError() {
+      atualizarRelogio(1);
+//      alert("Função desabilitada no momento, tente novamente mais tarde.");
+      alert("Não foi possível completar este procedimento!");
+          
+      
+        
+        
+      
+  }
+ 
+    function showPayment() {
+        saldoAtual = window.localStorage.getItem( "balance" );
+        var svid = window.localStorage.getItem( "selectedVId" );
+
+        console.log("showPayment");
+
+        if(saldoAtual>=totalVaga){
+
+
+            atualizarRelogio(2);
+
+            // Realiza o estacionamento:
+            var requestURL = 'https://transitabile.com.br/apibh.php?userid=' + window.localStorage.getItem("id") + '&type=park' + '&vid=' + svid + '&totalValue=' + totalVaga;
+            $.ajax({
+              url: requestURL
+              , type: 'GET'
+              , success: function (data) {
+                console.log("Resposta Bragança API");
+                console.log(data);
+                var response = $.parseJSON(data);
+                if (response.status == "failed") {
+                  console.log(response);
+                  alert(response.message);
+                }
+                if (response.status == "success") {
+                  console.log(response);
+                  alert(response.message);
+                  window.location.replace("dash.html");
+                }
+              }, error: function (data) {
+                console.log("error");
+                console.log(data);
+              }, complete: function (data) {
+                console.log("complete");
+                console.log(data);
+              }
+          });
+
+        }else{
+          console.log(response);
+          alert("Saldo inválido, Saldo Atual: " + saldoAtual + " - Total da vaga: " + totalVaga);
+        }        
+    }
+    
+  
+    function logout() {
+  window.localStorage.clear();
+  window.location.href = "index.html";
+  }
 </script>
 <!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

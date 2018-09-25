@@ -208,7 +208,7 @@
       <input type="hidden" name="iot" value="button" />
       <input type="hidden" name="produto_valor" id="produto_valor" value="4.40" />
 <!--    <button id="btn1" onclick="showPaymentInfo()" type="submit" class="btn btn-block btn-success">R$ 10,00</button>-->
-    <button id="btn1" onclick="showPaymentInfo()" type="submit" class="btn btn-block btn-success" value="4,40">R$ 4,40 - 01 RD</button>
+    <button id="btn1" onclick="showPaymentInfo(4.40)" type="submit" class="btn btn-block btn-success" value="4,40">R$ 4,40 - 01 RD</button>
   </form>
     
     
@@ -220,7 +220,7 @@
     <input type="hidden" name="code" value="61EF15788F8FA17EE4CF4FB68C453043" />
     <input type="hidden" name="iot" value="button" />
       <input type="hidden" name="produto_valor" id="produto_valor" value="8.80" />
-    <button id="btn2" onclick="showPaymentInfo()" type="submit" class="btn btn-block btn-success" value="8,8">R$ 8,80 - 02 RD</button>
+    <button id="btn2" onclick="showPaymentInfo(8.80)" type="submit" class="btn btn-block btn-success" value="8,8">R$ 8,80 - 02 RD</button>
   </form>
   <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
 </div>
@@ -231,7 +231,7 @@
     <input type="hidden" name="code" value="DE3CD133262697CBB41DCFA2D4F809D6" />
     <input type="hidden" name="iot" value="button" />
     <input type="hidden" name="produto_valor" id="produto_valor" value="44.00" />
-    <button id="btn3" onclick="showPaymentInfo()" type="submit" class="btn btn-block btn-success" value="44,00">R$ 44,00 - 10 RD</button>
+    <button id="btn3" onclick="showPaymentInfo(44.00)" type="submit" class="btn btn-block btn-success" value="44,00">R$ 44,00 - 10 RD</button>
     </form>
     <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
 </div>
@@ -243,7 +243,7 @@
     <input type="hidden" name="iot" value="button" />
     <input type="hidden" name="produto_valor" id="produto_valor" value="88.00" />
       
-        <button onclick="showPaymentInfo()" id="btn4" type="submit" class="btn btn-block btn-success" value="88,00">R$ 88,00 - 20 RD</button>
+        <button onclick="showPaymentInfo(88.00)" id="btn4" type="submit" class="btn btn-block btn-success" value="88,00">R$ 88,00 - 20 RD</button>
       </form>
       <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
 </div>
@@ -317,32 +317,32 @@
 
 	function showPaymentInfo( id ) {
 	console.log(id);
-		$('#10').css('display', 'none');
-		$('#20').css('display', 'none');
-		$('#30').css('display', 'none');
-		$('#50').css('display', 'none');
+		$('#4.40').css('display', 'none');
+		$('#8.80').css('display', 'none');
+		$('#44.00').css('display', 'none');
+		$('#88.00').css('display', 'none');
 		
-		if (id == 10) {
-			$('#10').css('display', 'block');
+		if (id == 4.40) {
+			$('#4.40').css('display', 'block');
 		}
 		
-		if (id == 20) {
-			$('#20').css('display', 'block');
+		if (id == 8.80) {
+			$('#8.80').css('display', 'block');
 		}
 		
-		if (id == 20) {
-			$('#20').css('display', 'block');
+		if (id == 44.00) {
+			$('#44.00').css('display', 'block');
 		}
 		
-		if (id == 30) {
-			$('#30').css('display', 'block');
+		if (id == 88.00) {
+			$('#88.00').css('display', 'block');
 		}
-		
-		if (id == 50) {
-			$('#50').css('display', 'block');
-		}
+			
+    window.localStorage.setItem( "selectedCredits", id );
 
-		$("#paymentInfo").html( "<br><b>Valor selecionado: </b> R$ " + id + "<br><br>" );
+    window.location.href = "pay.html";
+
+		// $("#paymentInfo").html( "<br><b>Valor selecionado: </b> R$ " + id + "<br><br>" );
 
 	}
 
@@ -350,7 +350,9 @@
       $("#cp").hide();
     });
     
-    function showPaymentInfo() {
+  $("#balanceValue").html( "R$ " + window.localStorage.getItem( "balance" ) );
+
+   /* function showPaymentInfo() {
       $("#cp").show();
     }
 
@@ -372,7 +374,7 @@
     creditRD>1?$("#balanceValue").html( creditRD + " - RDs" ):$("#balanceValue").html( creditRD + " - RD" );
 //	$("#balanceValue").html( creditRD + " - RD" );	  
 //	$("#balanceValue").html( "R$ " + window.localStorage.getItem( "balance" ) );	  
-
+*/
 	function logout() {
 		window.localStorage.clear();
 		window.location.href = "index.html";

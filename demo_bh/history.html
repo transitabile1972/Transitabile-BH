@@ -265,19 +265,19 @@
 
             var alertCode = '<div style="margin: 16px;"class="alert alert-warning alert-dismissible"><h4><i class="icon fa fa-info"></i> Registros</h4>' + response.message + '</div>';
             $('.content').html(alertCode + $('.content').html());
-            var listCode = "<tr><th>Data</th><th>Situação</th><th>Log</th></tr>";
+            var listCode = "<tr><th>Data</th><th>Log</th></tr>";
             $('#logsList').html(listCode);
 
           } else {
 
             var alertCode = '<div style="margin: 16px;"class="alert alert-info alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h4><i class="icon fa fa-info"></i> Registros de Transações</h4>' + response.message + '</div>';
             $('.content').html( alertCode + $('.content').html());
-            var listCode = "<tr><th>Data</th><th>Situação</th><th>Log</th></tr>";
+            var listCode = "<tr><th>Data</th><th>Log</th></tr>";
             for (var i = 0; i < response.list.length; i++) {
               listCode += '<tr><td colspan="2">' + response.list[i].created + '</td></tr><tr><td>' + getFormattedLogType( response.list[i].type ) + '</td><td><button id="btn_log" type="button" class="btn btn-primary btn-xs btn-log-style" data-toggle="popover" data-placement="top" data-content='+ response.list[i].description +'>Detalhes</button></td><td>' + getButtonLogType( response.list[i].type ) +'</td></tr>';
             
-            var cod_trans = response.list[i].id;
-            console.log(cod_trans);
+            /* var cod_trans = response.list[i].id;
+            console.log(cod_trans); */
             }           
 
 
@@ -355,12 +355,12 @@
     function getButtonLogType( type ) {
       
       if(type == "Compra") {
-        return "<button id='btnCancel' type='button' class='btn btn-danger btn-xs btn-cancel-style' onclick='btnCancel()'>Cancelar</button>";
+        return ""; /*"<button id='btnCancel' type='button' class='btn btn-danger btn-xs btn-cancel-style' onclick='btnCancel()'>Cancelar</button>";*/
       }      
 
       return "<span class='label label-primary'></span>";
 
-    }
+    } 
 
   </script>
 

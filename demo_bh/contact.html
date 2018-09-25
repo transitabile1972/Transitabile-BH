@@ -193,16 +193,20 @@
 			  </div>
 			  
 			  <div class="form-group">
-                  <label for="subject">Assunto:</label>
-                  <input name="subject" type="text" class="form-control" id="modelInput" placeholder="Assunto">
-                </div>
+          <label for="subject">Assunto:</label>
+          <select class="form-control" id="modelInp" name="subject">
+            <option value="nd"> --- --- </option>
+            <option value="duvidas">Dúvidas</option>
+            <option value="sugestoes">Sugestões</option>
+            <option value="cancelamento">Cancelamento</option>
+          </select>
+        </div>
 
-<div class="form-group">
-                  <label for="msg">Mensagem:</label>
-                  <input name="msg" type="text" class="form-control" id="modelInput" placeholder="Mensagem">
-                </div>
-                
-                
+        <div class="form-group">
+          <label for="msg">Mensagem:</label>
+          <input name="msg" type="text" class="form-control" id="modelInput" placeholder="Mensagem">
+        </div>          
+             
                 
               </div>
               <!-- /.box-body -->
