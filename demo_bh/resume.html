@@ -410,7 +410,7 @@
         
         window.localStorage.setItem("totalVaga", totalVaga);
 //        alert(tempoPermanencia);
-        tempoPermanencia>1?$("#ticketInfo").html( "<br><b>Saldo atual: </b><br>R$ " + saldoAtual + "<br><br><b>Valor da vaga: </b><br>R$ " + valorDaVaga + "<br><br><b>Valor total por " + tempoPermanencia + " horas: </b><br>R$ " + totalVaga + "<br><br>"):$("#ticketInfo").html( "<br><b>Saldo atual: </b><br>R$ " + saldoAtual + "<br><br><b>Valor da vaga: </b><br>R$ " + valorDaVaga + "<br><br><b>Valor total por " + tempoPermanencia + " hora: </b><br>R$ " + totalVaga + "<br><br>");
+        tempoPermanencia>1?$("#ticketInfo").html( "<br><b>Saldo atual: </b><br>RD " + saldoAtual + "<br><br><b>Valor da vaga: </b><br>RD " + valorDaVaga + "<br><br><b>Valor total por " + tempoPermanencia + " horas: </b><br>RD " + totalVaga + "<br><br>"):$("#ticketInfo").html( "<br><b>Saldo atual: </b><br>RD " + saldoAtual + "<br><br><b>Valor da vaga: </b><br>RD " + valorDaVaga + "<br><br><b>Valor total por " + tempoPermanencia + " hora: </b><br>RD " + totalVaga + "<br><br>");
 //        saldoAtual>=totalVaga?document.getElementById("botaoEstacionar").disabled=false:document.getElementById().disabled=true;
         
         saldoAtual>=totalVaga?$("#divBotaoEstacionar").html( "<a href='javascript:showPayment()'><button id='botaoEstacionar' name='botaoEstacionar' type='button' class='btn btn-block btn-success' >Estacionar</button></a>"):$("#divBotaoEstacionar").html( "<a href='javascript:showPaymentError()'><button id='botaoEstacionar' name='botaoEstacionar' type='button' class='btn btn-block btn-success' >Estacionar</button></a>");
@@ -474,7 +474,7 @@
     $("#parklotDesc").html( "<b>Detalhes da vaga:</b><br><br>" + localizacaoVaga + "<br><br><b>Permitido estacionar:</b><br><br>de 1 a 12 horas."); 
     
 //    $("#ticketInfo").html( "<br><b>Saldo atual: R$ " + window.localStorage.getItem( "balance" ) + "</b><br>Valor da vaga: " + pl.value + "<br><br>" );  
-    tempoPermanencia>1?$("#ticketInfo").html( "<br><b>Saldo atual: </b><br>R$ " + saldoAtual + "<br><br><b>Valor da vaga: </b><br>R$ " + valorDaVaga + "<br><br><b>Valor total por " + tempoPermanencia + " horas: </b><br>R$ " + totalVaga + "<br><br>"):$("#ticketInfo").html( "<br><b>Saldo atual: </b><br>R$ " + saldoAtual + "<br><br><b>Valor da vaga: </b><br>R$ " + valorDaVaga + "<br><br><b>Valor total por " + tempoPermanencia + " hora: </b><br>R$ " + totalVaga + "<br><br>");
+    tempoPermanencia>1?$("#ticketInfo").html( "<br><b>Saldo atual: </b><br>RD " + saldoAtual + "<br><br><b>Valor da vaga: </b><br>RD " + valorDaVaga + "<br><br><b>Valor total por " + tempoPermanencia + " horas: </b><br>RD " + totalVaga + "<br><br>"):$("#ticketInfo").html( "<br><b>Saldo atual: </b><br>RD " + saldoAtual + "<br><br><b>Valor da vaga: </b><br>RD " + valorDaVaga + "<br><br><b>Valor total por " + tempoPermanencia + " hora: </b><br>RD " + totalVaga + "<br><br>");
         
         saldoAtual>=totalVaga?$("#divBotaoEstacionar").html( "<a href='javascript:showPayment()'><button id='botaoEstacionar' name='botaoEstacionar' type='button' class='btn btn-block btn-success' >Estacionar</button></a>"):$("#divBotaoEstacionar").html( "<a href='javascript:showPaymentError()'><button id='botaoEstacionar' name='botaoEstacionar' type='button' class='btn btn-block btn-success' >Estacionar</button></a>");
         
@@ -515,11 +515,8 @@
   function showPaymentError() {
       atualizarRelogio(1);
 //      alert("Função desabilitada no momento, tente novamente mais tarde.");
-      alert("Não foi possível completar este procedimento!");
-          
-      
-        
-        
+    // alert("Não foi possível completar este procedimento!");
+    window.location.href = "dash.html";       
       
   }
  
